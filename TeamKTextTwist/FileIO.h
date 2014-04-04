@@ -1,6 +1,8 @@
 #pragma once
 
 #include <string>
+#include <map>
+#include <vector>
 using namespace std;
 
 namespace model {
@@ -8,6 +10,7 @@ namespace model {
 	{
 	public:
 		FileIO();
+		map<string, vector<string>> parseFile();
 	};
 }
 
