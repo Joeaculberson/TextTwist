@@ -13,16 +13,31 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\model">
+      <UniqueIdentifier>{f2603348-c045-46f9-8c09-2c255b3a638d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\view">
+      <UniqueIdentifier>{0f9b07e0-4b05-4927-9edc-53681118e2c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\controller">
+      <UniqueIdentifier>{7a198f50-22dd-4403-92d1-04fd5adcb3dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\fileio">
+      <UniqueIdentifier>{b01d8b6e-d12f-460e-bffa-931014d4866e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="WinCLI.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="MyForm.cpp">
       <Filter>Header Files</Filter>
     </ClCompile>
     <ClCompile Include="FileIO.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\fileio</Filter>
+    </ClCompile>
+    <ClCompile Include="WinCLI.cpp">
+      <Filter>Source Files\controller</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Source Files\controller</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -30,6 +45,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="FileIO.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

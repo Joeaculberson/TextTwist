@@ -31,7 +31,7 @@ namespace model {
 
 		if (myfile.is_open())
 		{
-			while (getline(myfile,word))
+			while (getline(myfile, word))
 			{
 				string alphabetizedLetters = word;
 				sort(alphabetizedLetters.begin(), alphabetizedLetters.end());
