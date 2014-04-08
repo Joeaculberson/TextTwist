@@ -2,7 +2,6 @@
 
 #include <iostream>
 #include <fstream>
-#include <algorithm>
 
 namespace model {
 
@@ -17,15 +16,16 @@ namespace model {
 	}
 	
    /**
-	* Parses the dictionary and returns the words with their appropriate subwords.
+	* Parses the dictionary and returns the words.
 	* 
 	* @pre none
 	*
-	* @return The words with their appropriate subwords.
+	* @return The words in the dictionary.
 	*/
-	map<string, vector<string>> FileIO::parseFile() 
+	vector<string> FileIO::parseFile() 
 	{
-		map<string, vector<string>> words = map<string, vector<string>>();
+		vector<string> words = vector<string>();
+
 		string word;
 		ifstream myfile("dictionary.txt");
 
@@ -33,17 +33,7 @@ namespace model {
 		{
 			while (getline(myfile, word))
 			{
-				string alphabetizedLetters = word;
-				sort(alphabetizedLetters.begin(), alphabetizedLetters.end());
-
-				if (words.find(alphabetizedLetters) == words.end())
-				{
-					words.insert(pair<string, vector<string>>(alphabetizedLetters, vector<string>()));
-				} 
-				else
-				{
-					words[alphabetizedLetters].push_back(word);
-				}
+				words.push_back(word);
 			}
 			myfile.close();
 		}

@@ -9,8 +9,6 @@ namespace controller {
 	public:
 			Game();
 			void run();
-	private:
-			string randomlySelectLetters();
 	};
 }
 

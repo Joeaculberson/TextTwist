@@ -26,11 +26,7 @@ namespace controller {
 	*/
 	void Game::run() {
 		FileIO ^file = gcnew FileIO();
-		map<string, vector<string>> words = file->parseFile();	
-	}
-
-	string Game::randomlySelectLetters() {
-		
+		vector<string> words = file->parseFile();	
 	}
 
 }
