@@ -9,7 +9,7 @@ using namespace model;
 namespace controller {
 GameController::GameController(List<String^>^ wordList)
 {
-	//this->wordList = FileIO::parseFile();
+	this->wordList = this->fileIO->parseFile();
 }
 
 int GameController::binarySearchWord(String^ word, int first, int last) {
