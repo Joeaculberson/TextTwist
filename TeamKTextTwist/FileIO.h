@@ -9,7 +9,7 @@ namespace model {
 	{
 	public:
 		FileIO();
-		vector<string> parseFile();
+		vector<string>* parseFile();
 	};
 }
 

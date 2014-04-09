@@ -22,7 +22,7 @@ namespace model {
 	*
 	* @return The words in the dictionary.
 	*/
-	vector<string> FileIO::parseFile() 
+	vector<string>* FileIO::parseFile() 
 	{
 		vector<string> words = vector<string>();
 

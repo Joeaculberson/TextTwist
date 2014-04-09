@@ -26,7 +26,7 @@ namespace controller {
 	*/
 	void Game::run() {
 		FileIO ^file = gcnew FileIO();
-		vector<string> words = file->parseFile();	
+		vector<string>* words = file->parseFile();	
 	}
 
 }

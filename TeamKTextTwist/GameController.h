@@ -13,7 +13,8 @@ private:
 public:
 	GameController(void);
 
-	int wordIsContained(vector<string> wordList, const string& word, int first, int last);
-	bool contains(vector<string> wordList, const string& word);
+	int wordIsContained(vector<string>& wordList, const string& word, int first, int last);
+	bool contains(vector<string>& wordList, const string& word);
+	string getRandomLetters(int totalLetters);
 };
 }
