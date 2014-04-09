@@ -75,6 +75,7 @@
   <ItemGroup>
     <ClCompile Include="FileIO.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameController.cpp" />
     <ClCompile Include="MyForm.cpp" />
     <ClCompile Include="WinCLI.cpp" />
   </ItemGroup>
@@ -88,6 +89,7 @@
   <ItemGroup>
     <ClInclude Include="FileIO.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="GameController.h" />
     <ClInclude Include="MyForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
