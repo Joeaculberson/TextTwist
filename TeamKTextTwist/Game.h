@@ -7,8 +7,8 @@ namespace controller {
 	ref class Game
 	{
 	public:
-			Game();
-			void run();
+		Game();
+		void run();
 	};
 }
 

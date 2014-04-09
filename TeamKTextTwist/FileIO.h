@@ -2,12 +2,15 @@
 using namespace System;
 using namespace System::Collections::Generic;
 
+#include "Player.h"
+
 namespace model {
 	ref class FileIO
 	{
 	public:
 		FileIO(void);
-		static List<String^>^ parseFile();
+		List<String^>^ parseFile();
+		void addHighScore(Player player);
 	};
 }
 

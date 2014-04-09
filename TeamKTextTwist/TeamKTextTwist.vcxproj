@@ -77,6 +77,7 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameController.cpp" />
     <ClCompile Include="MyForm.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="WinCLI.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -93,6 +94,7 @@
     <ClInclude Include="MyForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="Player.h" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MyForm.resx">
