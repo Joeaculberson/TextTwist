@@ -1,11 +1,9 @@
 #include "Game.h"
-
 #include "FileIO.h"
 using namespace model;
 
-#include <map>
-#include <vector>
-using namespace std;
+using namespace System;
+using namespace System::Collections::Generic;
 
 namespace controller {
 
@@ -25,8 +23,7 @@ namespace controller {
 	* @pre none
 	*/
 	void Game::run() {
-		FileIO ^file = gcnew FileIO();
-		vector<string>* words = file->parseFile();	
+		
 	}
 
 }

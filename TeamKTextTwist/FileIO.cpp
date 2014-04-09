@@ -1,7 +1,8 @@
-#include "FileIO.h"
+using namespace System;
+using namespace System::Collections::Generic;
+using namespace System::IO;
 
-#include <iostream>
-#include <fstream>
+#include "FileIO.h"
 
 namespace model {
 
@@ -10,7 +11,7 @@ namespace model {
 	 *
 	 * @pre none
 	 */
-	FileIO::FileIO()
+	FileIO::FileIO(void)
 	{
 		
 	}
@@ -22,28 +23,26 @@ namespace model {
 	*
 	* @return The words in the dictionary.
 	*/
-	vector<string>* FileIO::parseFile() 
+	List<String^>^ FileIO::parseFile() 
 	{
-		vector<string> words = vector<string>();
+		//vector<string> words = vector<string>();
+		List<String^>^ words = gcnew List<String^>();
 
-		string word;
-		ifstream myfile("dictionary.txt");
+		//string word;
+		String^ fileName = "dictionary.txt";
 
-		if (myfile.is_open())
-		{
-			while (getline(myfile, word))
-			{
-				words.push_back(word);
+		try {
+			StreamReader^ input = File::OpenText(fileName);
+
+			String^ line;
+			while((line = input->ReadLine()) != nullptr) {
+				words->Add(line);
 			}
-			myfile.close();
+		} catch (Exception^ exception) {
+			//not found
 		}
-		else 
-		{
-			//file not found
-		} 
 
 		return words;
 	}
-
 }
 

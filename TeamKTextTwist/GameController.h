@@ -1,20 +1,22 @@
 #pragma once
-#include <vector>
-#include <string>
-#include <iostream>
-#include "FileIO.h"
-using namespace std;
 
-namespace model {
+#include "FileIO.h"
+using namespace System::Collections::Generic;
+using namespace System;
+using namespace model;
+
+namespace controller {
 ref class GameController
 {
 private:
+	List<String^>^ wordList;
+
 	int getMidpoint(int first, int last);
 public:
-	GameController(void);
+	GameController(List<String^>^ wordList);
 
-	int wordIsContained(vector<string>& wordList, const string& word, int first, int last);
-	bool contains(vector<string>& wordList, const string& word);
-	string getRandomLetters(int totalLetters);
+	int binarySearchWord(String^ word, int first, int last);
+	bool contains(String^ word);
+	String^ getRandomLetters(int totalLetters);
 };
 }

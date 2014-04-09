@@ -1,15 +1,13 @@
 #pragma once
-
-#include <string>
-#include <vector>
-using namespace std;
+using namespace System;
+using namespace System::Collections::Generic;
 
 namespace model {
 	ref class FileIO
 	{
 	public:
-		FileIO();
-		vector<string>* parseFile();
+		FileIO(void);
+		static List<String^>^ parseFile();
 	};
 }
 
