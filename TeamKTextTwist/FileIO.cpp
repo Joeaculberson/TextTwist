@@ -1,7 +1,6 @@
 using namespace System;
 using namespace System::Collections::Generic;
 using namespace System::IO;
-using namespace System::
 
 #include "FileIO.h"
 
@@ -40,7 +39,7 @@ namespace model {
 				words->Add(line);
 			}
 		} catch (Exception^ exception) {
-			//not found
+			Console::WriteLine("File not found");
 		}
 
 		return words;
@@ -71,4 +70,3 @@ namespace model {
 		//write list back out to file, overwriting the old one.
 	}
 }
-
