@@ -9,8 +9,7 @@ using namespace model;
 namespace Project1 {
 
 System::Void MyForm::generateButton_Click(System::Object^  sender, System::EventArgs^  e) {
-	FileIO^ file = gcnew FileIO();
-	this->gc = gcnew GameController(file->parseFile());
+	this->gc = gcnew GameController();
 	this->lettersBox->Text = gc->getRandomLetters(7);
 }
 

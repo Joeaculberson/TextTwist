@@ -4,8 +4,9 @@
 using namespace System::Text;
 
 namespace model {
-GameController::GameController(List<String^>^ wordList)
+GameController::GameController()
 {
+	this->fileIO = gcnew FileIO();
 	this->wordList = this->fileIO->parseFile();
 }
 
@@ -52,10 +53,13 @@ String^ GameController::getRandomLetters(int totalLetters) {
 	StringBuilder^ builder = gcnew StringBuilder();
 	for (int i = 0; i < totalLetters; i++) {
 		int randomIndex = generator->Next(0, letters->Length);
+		char randomLetter;
 		do {
-			builder->Append(Char::ToString(letters[randomIndex]));
+			randomLetter = letters[randomIndex];
+			builder->Append(Char::ToString(randomLetter));
+
 			letters[randomIndex] = '?';
-		} while (letters[randomIndex] != '?');
+		} while (randomLetter == '?');
 	}
 	return builder->ToString();
 }

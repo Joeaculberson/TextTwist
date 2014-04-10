@@ -17,7 +17,7 @@ private:
 	int binarySearchWord(String^ word, int first, int last);
 	List<char>^ stringToChars(String^ word);
 public:
-	GameController(List<String^>^ wordList);
+	GameController();
 
 	bool contains(String^ word);
 	String^ getRandomLetters(int totalLetters);
