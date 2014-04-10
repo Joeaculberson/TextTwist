@@ -64,13 +64,9 @@ String^ GameController::getRandomLetters(int totalLetters) {
 	return builder->ToString();
 }
 
-String^ GameController::getRandomLetters() {
-	return this->randomLetters;
-}
-
-String^ GameController::shuffleLetters() {
+String^ GameController::shuffleLetters(String^ lettersToShuffle) {
 	Random^ random = gcnew Random();
-	List<char>^ letters = this->stringToChars(this->randomLetters);
+	List<char>^ letters = this->stringToChars(lettersToShuffle);
 
 	for (int i = letters->Count; i > 1; i--)
 	{
@@ -79,11 +75,11 @@ String^ GameController::shuffleLetters() {
 	    letters[j] = letters[i - 1];
 	    letters[i - 1] = tmp;
 	}
-	StringBuilder^ sb = gcnew StringBuilder();
-	for(int i = 0; i < randomLetters->Length; i++) {
-		sb->Append(Char::ToString(letters[i]));
+	StringBuilder^ builder = gcnew StringBuilder();
+	for(int i = 0; i < letters->Count; i++) {
+		builder->Append(Char::ToString(letters[i]));
 	}
-	return sb->ToString();
+	return builder->ToString();
 }
 
 List<char>^ GameController::stringToChars(String^ word) {
