@@ -39,7 +39,7 @@ namespace model {
 				words->Add(line);
 			}
 		} catch (Exception^ exception) {
-			Console::WriteLine("File not found");
+			Console::WriteLine("Error: " + exception->Message);
 		}
 
 		return words;
@@ -47,7 +47,23 @@ namespace model {
 
 
 	void FileIO::addHighScore(Player player) {
-		String^ fileName = "highscores.txt";
+		List<Player^>^ highScores = this->loadHighScores();
+		List<Player^>^ sortedHighScores = gcnew List<Player^>();
+
+		if (highScores->Count != 0) {
+			//sort players
+		}
+
+		StreamWriter^ sw = gcnew StreamWriter(L"highscores.txt");
+		for each (Player^ currPlayer in sortedHighScores)
+		{
+			sw->WriteLine(currPlayer->getName() + "/" + Convert::ToString(currPlayer->getScore()));
+		}
+		
+	}
+
+	List<Player^>^ FileIO::loadHighScores() {
+		String^ fileName = L"highscores.txt";
 		List<Player^>^ highScores = gcnew List<Player^>();
 		StreamReader^ input = File::OpenText(fileName);
 		String^ line;
@@ -60,13 +76,6 @@ namespace model {
 			highScores->Add(player);
 		}
 
-		List<Player^>^ sortedHighScores = gcnew List<Player^>();
-		if (highScores != nullptr) {
-			//sort by score
-		}
-
-		StreamWriter^ sw = gcnew StreamWriter(fileName);
-
-		//write list back out to file, overwriting the old one.
+		return highScores;
 	}
 }

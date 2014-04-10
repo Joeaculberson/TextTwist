@@ -11,6 +11,7 @@ namespace model {
 		FileIO(void);
 		List<String^>^ parseFile();
 		void addHighScore(Player player);
+		List<Player^>^ loadHighScores();
 	};
 }
 

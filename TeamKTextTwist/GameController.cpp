@@ -1,9 +1,9 @@
 #include "GameController.h"
 #include "FileIO.h"
 
+using namespace System;
 using namespace System::Text;
 
-using namespace System;
 using namespace model;
 
 namespace controller {
@@ -56,7 +56,7 @@ String^ GameController::getRandomLetters(int totalLetters) {
 	for (int i = 0; i < totalLetters; i++) {
 		int randomIndex = generator->Next(0, letters->Length);
 		do {
-			builder->Append(letters[randomIndex]);
+			builder->Append(Char::ToString(letters[randomIndex]));
 			letters[randomIndex] = '?';
 		} while (letters[randomIndex] != '?');
 	}
