@@ -1,7 +1,7 @@
 #pragma once
 
 #include "GameController.h"
-using namespace controller;
+using namespace model;
 
 namespace Project1 {
 
