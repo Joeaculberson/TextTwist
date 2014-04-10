@@ -60,9 +60,13 @@ String^ GameController::getRandomLetters(int totalLetters) {
 	return builder->ToString();
 }
 
-String^ GameController::shuffleLetters(String^ randomLetters) {
+String^ GameController::getRandomLetters() {
+	return this->randomLetters;
+}
+
+String^ GameController::shuffleLetters() {
 	Random^ random = gcnew Random();
-	List<char>^ letters = this->stringToChars(randomLetters);
+	List<char>^ letters = this->stringToChars(this->randomLetters);
 
 	for (int i = letters->Count; i > 1; i--)
 	{

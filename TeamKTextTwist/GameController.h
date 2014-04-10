@@ -11,15 +11,18 @@ ref class GameController
 private:
 	List<String^>^ wordList;
 	FileIO^ fileIO;
+	String^ randomLetters;
 
 	int getMidpoint(int first, int last);
 	int binarySearchWord(String^ word, int first, int last);
+	List<char>^ stringToChars(String^ word);
 public:
 	GameController(List<String^>^ wordList);
 
 	bool contains(String^ word);
 	String^ getRandomLetters(int totalLetters);
-	String^ shuffleLetters(String^ randomLetters);
-	List<char>^ stringToChars(String^ word);
+	String^ shuffleLetters();
+	String^ getRandomLetters();
+	
 };
 }
