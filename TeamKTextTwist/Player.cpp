@@ -2,6 +2,10 @@
 
 namespace model {
 
+Player::Player() {
+	this->name = "";
+	this->score = 0;
+}
 Player::Player(String^ name)
 {
 	this->name = name;
@@ -25,6 +29,22 @@ String^ Player::getName() {
 
 void Player::setName(String^ name) {
 	this->name = name;
+}
+
+bool Player::operator<(const Player^ player) {
+	return this->score < player->score;
+}
+
+bool Player::operator<=(const Player^ player) {
+	return this->score <= player->score;
+}
+
+bool Player::operator>(const Player^ player) {
+	return this->score > player->score;
+}
+
+bool Player::operator>=(const Player^ player) {
+	return this->score >= player->score;
 }
 
 }

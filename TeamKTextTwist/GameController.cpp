@@ -1,5 +1,6 @@
 #include "GameController.h"
 #include "FileIO.h"
+#include <iostream>
 
 using namespace System::Text;
 
@@ -8,6 +9,7 @@ GameController::GameController()
 {
 	this->fileIO = gcnew FileIO();
 	this->wordList = this->fileIO->parseFile();
+	this->player = gcnew Player();
 }
 
 int GameController::binarySearchWord(String^ word, int first, int last) {
@@ -26,11 +28,16 @@ int GameController::binarySearchWord(String^ word, int first, int last) {
 }
 
 int GameController::getMidpoint(int first, int last) {
-	return (first + last) / 2;
+	return (first + (last - first)) / 2;
 }
 
 bool GameController::contains(String^ word) {
-	return !(this->binarySearchWord(word, 0, this->wordList->Count - 1) == -1);
+	int index = this->binarySearchWord(word, 0, this->wordList->Count - 1);
+	if (index != -1) {
+		return true;
+	} else {
+		return false;
+	}
 }
 
 /**
@@ -88,6 +95,32 @@ List<char>^ GameController::stringToChars(String^ word) {
 		letters->Add(word[i]);
 	}
 	return letters;
+}
+
+void GameController::setName(String^ name) {
+	this->player->setName(name);
+}
+
+bool GameController::wordIsValidAndAllowed(String^ word, String^ allowedCharacters) {
+	if (this->wordContainsAllowedCharacters(word, allowedCharacters)) {
+		if (this->contains(word)) {
+			return true;
+		}
+	} else {
+		return false;
+	}
+}
+
+bool GameController::wordContainsAllowedCharacters(String^ word, String^ allowedCharacters) {
+	List<char>^ allowedArray = this->stringToChars(allowedCharacters);
+	bool allowed = true;
+	for (int i = 0; i < word->Length; i++) {
+		if (!allowedArray->Contains(word[i])) {
+			return false;
+		}
+	}
+
+	return true;
 }
 
 }

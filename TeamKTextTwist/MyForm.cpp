@@ -23,4 +23,23 @@ System::Void MyForm::shuffleButton_Click(System::Object^  sender, System::EventA
 	}
 }
 
+System::Void MyForm::nameBox_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+	if (this->nameBox->Text->Length != 0) {
+		this->startButton->Enabled = true;
+	} else {
+		this->startButton->Enabled = false;
+	}
+}
+
+System::Void MyForm::startButton_Click(System::Object^  sender, System::EventArgs^  e) {
+	String^ playerName = this->nameBox->Text;
+	this->generateButton->Enabled = true;
+	this->shuffleButton->Enabled = true;
+	this->submitButton->Enabled = true;
+}
+
+System::Void MyForm::submitButton_Click(System::Object^  sender, System::EventArgs^  e) {
+	
+}
+
 }
