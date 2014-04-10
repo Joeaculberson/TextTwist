@@ -5,7 +5,7 @@ using namespace System::Collections::Generic;
 using namespace System;
 using namespace model;
 
-namespace controller {
+namespace model {
 ref class GameController
 {
 private:
@@ -19,5 +19,7 @@ public:
 
 	bool contains(String^ word);
 	String^ getRandomLetters(int totalLetters);
+	String^ shuffleLetters(String^ randomLetters);
+	List<char>^ stringToChars(String^ word);
 };
 }

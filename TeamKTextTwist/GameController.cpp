@@ -1,12 +1,9 @@
 #include "GameController.h"
 #include "FileIO.h"
 
-using namespace System;
 using namespace System::Text;
 
-using namespace model;
-
-namespace controller {
+namespace model {
 GameController::GameController(List<String^>^ wordList)
 {
 	this->wordList = this->fileIO->parseFile();
@@ -61,6 +58,32 @@ String^ GameController::getRandomLetters(int totalLetters) {
 		} while (letters[randomIndex] != '?');
 	}
 	return builder->ToString();
+}
+
+String^ GameController::shuffleLetters(String^ randomLetters) {
+	Random^ random = gcnew Random();
+	List<char>^ letters = this->stringToChars(randomLetters);
+
+	for (int i = letters->Count; i > 1; i--)
+	{
+	    int j = random->Next(i);
+	    char tmp = letters[j];
+	    letters[j] = letters[i - 1];
+	    letters[i - 1] = tmp;
+	}
+	StringBuilder^ sb = gcnew StringBuilder();
+	for(int i = 0; i < randomLetters->Length; i++) {
+		sb->Append(Char::ToString(letters[i]));
+	}
+	return sb->ToString();
+}
+
+List<char>^ GameController::stringToChars(String^ word) {
+	List<char>^ letters = gcnew List<char>();
+	for (int i = 0; i < word->Length; i++) {
+		letters->Add(word[i]);
+	}
+	return letters;
 }
 
 }
