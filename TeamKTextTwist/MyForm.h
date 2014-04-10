@@ -1,5 +1,8 @@
 #pragma once
 
+#include "GameController.h"
+using namespace controller;
+
 namespace Project1 {
 
 	using namespace System;
@@ -44,6 +47,7 @@ namespace Project1 {
 	private: System::Windows::Forms::Button^  button2;
 	private: System::Windows::Forms::Button^  button1;
 	private: String^ randomLetters;
+	private: GameController^ gc;
 
 
 

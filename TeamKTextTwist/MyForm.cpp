@@ -1,8 +1,5 @@
 #include "MyForm.h"
 
-#include "GameController.h"
-using namespace controller;
-
 using namespace System::Windows::Forms;
 using namespace System::Text;
 
@@ -13,7 +10,7 @@ namespace Project1 {
 
 System::Void MyForm::generateButton_Click(System::Object^  sender, System::EventArgs^  e) {
 	FileIO^ file = gcnew FileIO();
-	GameController^ gc = gcnew GameController(file->parseFile());
+	this->gc = gcnew GameController(file->parseFile());
 	this->randomLetters = gc->getRandomLetters(7);
 	this->lettersBox->Text = this->randomLetters;
 }
