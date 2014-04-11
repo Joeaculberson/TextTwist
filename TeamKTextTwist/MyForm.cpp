@@ -40,15 +40,39 @@ System::Void MyForm::startButton_Click(System::Object^  sender, System::EventArg
 }
 
 System::Void MyForm::submitButton_Click(System::Object^  sender, System::EventArgs^  e) {
-	if (this->guessBox->Text->Length != 0) {
+	if (this->guessBox->Text->Length >= 3) {
 		String^ value = this->guessBox->Text;
 		Word^ newWord = gcnew Word(value);
 		String^ allowedLetters = this->lettersBox->Text;
 		if (this->gc->isWordValid(newWord, allowedLetters)) {
-			this->guessedWords->AppendText(value + "\n");
+			int pointValue = newWord->getPointValue();
+			this->guessedWords->AppendText(value + " (" + pointValue + ")" + "\n");
+			this->gc->incrementPlayerScore(pointValue);
+			String^ newAllowedLetters = this->removeCharacters(value, allowedLetters);
+			this->lettersBox->Text = newAllowedLetters;
+			this->scoreLabel->Text = this->gc->getPlayerScoreString();
 		} else {
-			MessageBox::Show("Word not allowed.");
+			MessageBox::Show("Word not allowed. You have lost one point.");
+			this->gc->decrementPlayerScore();
+			this->scoreLabel->Text = this->gc->getPlayerScoreString();
 		}
+	} else {
+		MessageBox::Show("Your guess must be at least three letters long");
 	}
+	this->guessBox->Text = "";
 }
+
+String^ MyForm::removeCharacters(String^ ofWord, String^ fromString) {
+	List<char>^ fromList = this->gc->stringToChars(fromString);
+	for (int i = 0; i < ofWord->Length; i++) {
+		fromList->Remove(ofWord[i]);
+	}
+
+	StringBuilder^ builder = gcnew StringBuilder();
+	for (int i = 0; i < fromList->Count; i++) {
+		builder->Append(Char::ToString(fromList[i]));
+	}
+
+	return builder->ToString();
+}	
 }

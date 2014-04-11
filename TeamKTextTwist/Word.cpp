@@ -26,7 +26,7 @@ bool Word::containsAllowedCharacters(List<char>^ allowedList) {
 	return allowed;
 }
 
-int Word::binarySearch(List<String^>^ wordList, int first, int last) {
+bool Word::binarySearch(List<String^>^ wordList, int first, int last) {
 	return false;
 }
 
@@ -40,5 +40,22 @@ int Word::getMidpoint(int first, int last) {
 
 bool Word::isValid(List<String^>^ dictionary, List<char>^ allowedLetters) {
 	return this->containsAllowedCharacters(allowedLetters) /*&& this->isInDictionary(dictionary)*/;
+}
+
+int Word::getPointValue() {
+	int length = this->value->Length;
+	if (length <= 4 ) {
+		return 1;
+	} else if (length == 5) {
+		return 2;
+	} else if (length == 6) {
+		return 3;
+	} else if (length == 7) {
+		return 5;
+	} else if (length >= 8) {
+		return 11;
+	} else {
+		return -1;
+	}
 }
 }

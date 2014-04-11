@@ -52,6 +52,7 @@ namespace Project1 {
 	private: System::Windows::Forms::Label^  namePrompt;
 	private: System::Windows::Forms::TextBox^  nameBox;
 	private: System::Windows::Forms::Button^  startButton;
+	private: System::Windows::Forms::Label^  scoreLabel;
 
 
 	private: GameController^ gc;
@@ -61,6 +62,7 @@ namespace Project1 {
 	private: System::Void nameBox_TextChanged(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void startButton_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void submitButton_Click(System::Object^  sender, System::EventArgs^  e);
+	private: String^ removeCharacters(String^ ofWord, String^ fromString);
 	private:
 		/// <summary>
 		/// Required designer variable.
@@ -85,6 +87,7 @@ namespace Project1 {
 			this->namePrompt = (gcnew System::Windows::Forms::Label());
 			this->nameBox = (gcnew System::Windows::Forms::TextBox());
 			this->startButton = (gcnew System::Windows::Forms::Button());
+			this->scoreLabel = (gcnew System::Windows::Forms::Label());
 			this->SuspendLayout();
 			// 
 			// generateButton
@@ -92,7 +95,7 @@ namespace Project1 {
 			this->generateButton->Enabled = false;
 			this->generateButton->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
 				static_cast<System::Byte>(0)));
-			this->generateButton->Location = System::Drawing::Point(428, 356);
+			this->generateButton->Location = System::Drawing::Point(383, 371);
 			this->generateButton->Name = L"generateButton";
 			this->generateButton->Size = System::Drawing::Size(117, 25);
 			this->generateButton->TabIndex = 0;
@@ -106,7 +109,7 @@ namespace Project1 {
 			this->lettersLabel->AutoSize = true;
 			this->lettersLabel->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
 				static_cast<System::Byte>(0)));
-			this->lettersLabel->Location = System::Drawing::Point(342, 43);
+			this->lettersLabel->Location = System::Drawing::Point(342, 58);
 			this->lettersLabel->Name = L"lettersLabel";
 			this->lettersLabel->Size = System::Drawing::Size(189, 17);
 			this->lettersLabel->TabIndex = 1;
@@ -114,7 +117,7 @@ namespace Project1 {
 			// 
 			// guessBox
 			// 
-			this->guessBox->Location = System::Drawing::Point(409, 331);
+			this->guessBox->Location = System::Drawing::Point(372, 346);
 			this->guessBox->Margin = System::Windows::Forms::Padding(2);
 			this->guessBox->Name = L"guessBox";
 			this->guessBox->Size = System::Drawing::Size(149, 20);
@@ -123,7 +126,7 @@ namespace Project1 {
 			// submitButton
 			// 
 			this->submitButton->Enabled = false;
-			this->submitButton->Location = System::Drawing::Point(562, 331);
+			this->submitButton->Location = System::Drawing::Point(525, 344);
 			this->submitButton->Margin = System::Windows::Forms::Padding(2);
 			this->submitButton->Name = L"submitButton";
 			this->submitButton->Size = System::Drawing::Size(79, 21);
@@ -136,7 +139,7 @@ namespace Project1 {
 			// 
 			this->lettersBox->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 20, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point, 
 				static_cast<System::Byte>(0)));
-			this->lettersBox->Location = System::Drawing::Point(325, 72);
+			this->lettersBox->Location = System::Drawing::Point(309, 93);
 			this->lettersBox->Multiline = true;
 			this->lettersBox->Name = L"lettersBox";
 			this->lettersBox->ReadOnly = true;
@@ -146,7 +149,7 @@ namespace Project1 {
 			// 
 			// guessedWords
 			// 
-			this->guessedWords->Location = System::Drawing::Point(325, 176);
+			this->guessedWords->Location = System::Drawing::Point(309, 189);
 			this->guessedWords->Margin = System::Windows::Forms::Padding(2);
 			this->guessedWords->Multiline = true;
 			this->guessedWords->Name = L"guessedWords";
@@ -159,7 +162,7 @@ namespace Project1 {
 			this->label1->AutoSize = true;
 			this->label1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
 				static_cast<System::Byte>(0)));
-			this->label1->Location = System::Drawing::Point(342, 141);
+			this->label1->Location = System::Drawing::Point(354, 154);
 			this->label1->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->label1->Name = L"label1";
 			this->label1->Size = System::Drawing::Size(167, 17);
@@ -169,7 +172,7 @@ namespace Project1 {
 			// shuffleButton
 			// 
 			this->shuffleButton->Enabled = false;
-			this->shuffleButton->Location = System::Drawing::Point(314, 331);
+			this->shuffleButton->Location = System::Drawing::Point(277, 344);
 			this->shuffleButton->Margin = System::Windows::Forms::Padding(2);
 			this->shuffleButton->Name = L"shuffleButton";
 			this->shuffleButton->Size = System::Drawing::Size(91, 22);
@@ -183,7 +186,7 @@ namespace Project1 {
 			this->namePrompt->AutoSize = true;
 			this->namePrompt->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
 				static_cast<System::Byte>(0)));
-			this->namePrompt->Location = System::Drawing::Point(13, 76);
+			this->namePrompt->Location = System::Drawing::Point(34, 76);
 			this->namePrompt->Name = L"namePrompt";
 			this->namePrompt->Size = System::Drawing::Size(235, 17);
 			this->namePrompt->TabIndex = 8;
@@ -193,7 +196,7 @@ namespace Project1 {
 			// 
 			this->nameBox->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
 				static_cast<System::Byte>(0)));
-			this->nameBox->Location = System::Drawing::Point(16, 106);
+			this->nameBox->Location = System::Drawing::Point(37, 106);
 			this->nameBox->Name = L"nameBox";
 			this->nameBox->Size = System::Drawing::Size(100, 23);
 			this->nameBox->TabIndex = 9;
@@ -204,7 +207,7 @@ namespace Project1 {
 			this->startButton->Enabled = false;
 			this->startButton->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
 				static_cast<System::Byte>(0)));
-			this->startButton->Location = System::Drawing::Point(138, 106);
+			this->startButton->Location = System::Drawing::Point(172, 106);
 			this->startButton->Name = L"startButton";
 			this->startButton->Size = System::Drawing::Size(75, 23);
 			this->startButton->TabIndex = 10;
@@ -212,11 +215,23 @@ namespace Project1 {
 			this->startButton->UseVisualStyleBackColor = true;
 			this->startButton->Click += gcnew System::EventHandler(this, &MyForm::startButton_Click);
 			// 
+			// scoreLabel
+			// 
+			this->scoreLabel->AutoSize = true;
+			this->scoreLabel->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
+				static_cast<System::Byte>(0)));
+			this->scoreLabel->Location = System::Drawing::Point(34, 154);
+			this->scoreLabel->Name = L"scoreLabel";
+			this->scoreLabel->Size = System::Drawing::Size(61, 17);
+			this->scoreLabel->TabIndex = 11;
+			this->scoreLabel->Text = L"Score: 0";
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(662, 404);
+			this->ClientSize = System::Drawing::Size(615, 408);
+			this->Controls->Add(this->scoreLabel);
 			this->Controls->Add(this->startButton);
 			this->Controls->Add(this->nameBox);
 			this->Controls->Add(this->namePrompt);

@@ -78,4 +78,16 @@ bool GameController::isWordValid(Word^ word, String^ allowedLetters) {
 	return word->isValid(this->wordList, allowedList);
 }
 
+void GameController::incrementPlayerScore(int number) {
+	this->player->setScore(this->player->getScore() + number);
+}
+
+void GameController::decrementPlayerScore() {
+	this->player->setScore(this->player->getScore() - 1);
+}
+
+String^ GameController::getPlayerScoreString() {
+	return this->player->getScoreString();
+}
+
 }

@@ -20,7 +20,10 @@ public:
 	String^ getRandomLetters(int totalLetters);
 	String^ shuffleLetters(String^ lettersToShuffle);
 	void setPlayerName(String^ name);
+	void incrementPlayerScore(int number);
+	void decrementPlayerScore();
 	List<char>^ stringToChars(String^ toConvert);
 	bool isWordValid(Word^ word, String^ allowedLetters);
+	String^ getPlayerScoreString();
 };
 }

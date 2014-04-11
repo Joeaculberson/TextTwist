@@ -17,6 +17,7 @@ public:
 	void setScore(int score);
 	String^ getName();
 	void setName(String^ name);
+	String^ getScoreString();
 
 	bool operator<(const Player^ player);
 	bool operator<=(const Player^ player);

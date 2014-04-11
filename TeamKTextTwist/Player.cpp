@@ -17,7 +17,7 @@ int Player::getScore() {
 }
 
 void Player::setScore(int score) {
-	if (score > 0) {
+	if (score < 0) {
 		throw gcnew ArgumentException("Score cannot be negative.");
 	}
 	this->score = score;
@@ -45,6 +45,10 @@ bool Player::operator>(const Player^ player) {
 
 bool Player::operator>=(const Player^ player) {
 	return this->score >= player->score;
+}
+
+String^ Player::getScoreString() {
+	return "Score: " + this->score;
 }
 
 }

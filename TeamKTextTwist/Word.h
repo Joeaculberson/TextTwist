@@ -9,8 +9,9 @@ public:
 	Word(String^ value);
 
 	bool isValid(List<String^>^ dictionary, List<char>^ allowedLetters);
+	int getPointValue();
 private:
-	int binarySearch(List<String^>^ wordList, int first, int last);
+	bool binarySearch(List<String^>^ wordList, int first, int last);
 	int getMidpoint(int first, int last);
 	bool isInDictionary(List<String^>^);
 	bool containsAllowedCharacters(List<char>^ allowedList);
