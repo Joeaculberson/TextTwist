@@ -21,9 +21,8 @@ namespace Project1 {
 		MyForm(void)
 		{
 			InitializeComponent();
-			//
-			//TODO: Add the constructor code here
-			//
+			this->timeLimit = DEFAULT_TIME_LIMIT;
+			this->reuseLetters = false;
 		}
 
 	protected:
@@ -60,15 +59,10 @@ namespace Project1 {
 	private: System::Windows::Forms::ToolStripMenuItem^  optionsToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^  exitToolStripMenuItem;
 
-
-
-
-
-
-
-
-
 	private: GameController^ gc;
+	private: int timeLimit;
+	private: bool reuseLetters;
+	private: int static const DEFAULT_TIME_LIMIT = 2;
 
 	private: System::Void generateButton_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void shuffleButton_Click(System::Object^  sender, System::EventArgs^  e);

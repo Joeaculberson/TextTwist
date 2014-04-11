@@ -14,13 +14,32 @@ namespace TeamKTextTwist {
 	/// </summary>
 	public ref class OptionsDialog : public System::Windows::Forms::Form
 	{
+	public: int getTimeLimit();
+	public: bool getLetterReuse();
 	public:
-		OptionsDialog(void)
+		OptionsDialog(int timeLimit, bool letterReuse)
 		{
 			InitializeComponent();
-			//
-			//TODO: Add the constructor code here
-			//
+
+			this->minuteOneButton->Checked = false;
+			this->minuteTwoButton->Checked = false;
+			this->minuteThreeButton->Checked = false;
+
+			if(timeLimit == ONE_MINUTE) {
+				this->minuteOneButton->Checked = true;
+			} else if(timeLimit == TWO_MINUTES) {
+				this->minuteTwoButton->Checked = true;
+			} else if(timeLimit == THREE_MINUTES) {
+				this->minuteThreeButton->Checked = true;
+			} else {
+				throw gcnew ArgumentException("Invalid time limit.");
+			}
+
+			if(letterReuse) {
+				this->letterReuse->Checked = true;
+			} else {
+				this->letterReuse->Checked = false;
+			}
 		}
 
 	protected:
@@ -45,6 +64,9 @@ namespace TeamKTextTwist {
 	private: System::Windows::Forms::Button^  cancelTimer;
 	private: System::Windows::Forms::CheckBox^  letterReuse;
 
+	private: static const int ONE_MINUTE = 1;
+	private: static const int TWO_MINUTES = 2;
+	private: static const int THREE_MINUTES = 3;
 
 
 	private:
@@ -95,12 +117,10 @@ namespace TeamKTextTwist {
 			// minuteTwoButton
 			// 
 			this->minuteTwoButton->AutoSize = true;
-			this->minuteTwoButton->Checked = true;
 			this->minuteTwoButton->Location = System::Drawing::Point(26, 66);
 			this->minuteTwoButton->Name = L"minuteTwoButton";
 			this->minuteTwoButton->Size = System::Drawing::Size(103, 24);
 			this->minuteTwoButton->TabIndex = 1;
-			this->minuteTwoButton->TabStop = true;
 			this->minuteTwoButton->Text = L"2 minutes";
 			this->minuteTwoButton->UseVisualStyleBackColor = true;
 			// 

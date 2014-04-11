@@ -80,10 +80,11 @@ String^ MyForm::removeCharacters(String^ ofWord, String^ fromString) {
 }	
 
 System::Void MyForm::optionsToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
-	OptionsDialog^ optionsDialog = gcnew OptionsDialog();
+	OptionsDialog^ optionsDialog = gcnew OptionsDialog(this->timeLimit, this->reuseLetters);
 
 	if (optionsDialog->ShowDialog() == ::DialogResult::OK) {
-		//set options
+		this->reuseLetters = optionsDialog->getLetterReuse();
+		this->timeLimit = optionsDialog->getTimeLimit();
 	}
 }
 
