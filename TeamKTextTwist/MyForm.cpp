@@ -12,7 +12,6 @@ using namespace TeamKTextTwist;
 namespace Project1 {
 
 System::Void MyForm::generateButton_Click(System::Object^  sender, System::EventArgs^  e) {
-	this->gc = gcnew GameController();
 	this->lettersBox->Text = gc->getRandomLetters(7);
 	this->shuffleButton->Enabled = true;
 }

@@ -1,6 +1,7 @@
 using namespace System;
 using namespace System::Collections::Generic;
 using namespace System::IO;
+using namespace System::Text;
 
 #include "FileIO.h"
 
@@ -29,7 +30,7 @@ namespace model {
 		List<String^>^ words = gcnew List<String^>();
 
 		//string word;
-		String^ fileName = L"dictionary.txt";
+		String^ fileName = "dictionary.txt";
 
 		try {
 			StreamReader^ input = File::OpenText(fileName);

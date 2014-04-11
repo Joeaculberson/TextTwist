@@ -23,6 +23,7 @@ namespace Project1 {
 			InitializeComponent();
 			this->timeLimit = DEFAULT_TIME_LIMIT;
 			this->reuseLetters = false;
+			this->gc = gcnew GameController();
 		}
 
 	protected:

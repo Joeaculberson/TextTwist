@@ -9,6 +9,7 @@ GameController::GameController()
 {
 	this->fileIO = gcnew FileIO();
 	this->wordList = this->fileIO->parseFile();
+	int length = this->wordList->Count;
 	this->player = gcnew Player();
 }
 
