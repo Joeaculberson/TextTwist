@@ -76,6 +76,7 @@
     <ClCompile Include="FileIO.cpp" />
     <ClCompile Include="GameController.cpp" />
     <ClCompile Include="MyForm.cpp" />
+    <ClCompile Include="OptionsDialog.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="WinCLI.cpp" />
     <ClCompile Include="Word.cpp" />
@@ -93,12 +94,15 @@
     <ClInclude Include="MyForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="OptionsDialog.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="Player.h" />
     <ClInclude Include="Word.h" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="MyForm.resx">
-      <DependentUpon>MyForm.h</DependentUpon>
+    <EmbeddedResource Include="OptionsDialog.resx">
+      <DependentUpon>OptionsDialog.h</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -6,6 +6,9 @@ using namespace System::Text;
 #include "FileIO.h"
 using namespace model;
 
+#include "OptionsDialog.h"
+using namespace TeamKTextTwist;
+
 namespace Project1 {
 
 System::Void MyForm::generateButton_Click(System::Object^  sender, System::EventArgs^  e) {
@@ -75,4 +78,13 @@ String^ MyForm::removeCharacters(String^ ofWord, String^ fromString) {
 
 	return builder->ToString();
 }	
+
+System::Void MyForm::optionsToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
+	OptionsDialog^ optionsDialog = gcnew OptionsDialog();
+
+	if (optionsDialog->ShowDialog() == ::DialogResult::OK) {
+		//set options
+	}
+}
+
 }

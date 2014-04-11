@@ -38,6 +38,7 @@ namespace model {
 			while((line = input->ReadLine()) != nullptr) {
 				words->Add(line);
 			}
+			input->Close();
 		} catch (Exception^ exception) {
 			Console::WriteLine("Error: " + exception->Message);
 		}
@@ -59,6 +60,8 @@ namespace model {
 		{
 			sw->WriteLine(currPlayer->getName() + "/" + Convert::ToString(currPlayer->getScore()));
 		}
+		sw->Flush();
+		sw->Close();
 		
 	}
 
