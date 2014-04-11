@@ -14,6 +14,7 @@ namespace Project1 {
 System::Void MyForm::generateButton_Click(System::Object^  sender, System::EventArgs^  e) {
 	this->gc = gcnew GameController();
 	this->lettersBox->Text = gc->getRandomLetters(7);
+	this->shuffleButton->Enabled = true;
 }
 
 System::Void MyForm::shuffleButton_Click(System::Object^  sender, System::EventArgs^  e) {
@@ -21,8 +22,6 @@ System::Void MyForm::shuffleButton_Click(System::Object^  sender, System::EventA
 		String^ letters = this->lettersBox->Text;
 		letters = this->gc->shuffleLetters(letters);
 		this->lettersBox->Text = letters;
-	} else {
-		MessageBox::Show("There are no letters to shuffle at the moment. Please generate random letters first");
 	}
 }
 
@@ -38,7 +37,6 @@ System::Void MyForm::startButton_Click(System::Object^  sender, System::EventArg
 	String^ playerName = this->nameBox->Text;
 	//this->gc->setPlayerName(playerName);
 	this->generateButton->Enabled = true;
-	this->shuffleButton->Enabled = true;
 	this->submitButton->Enabled = true;
 }
 
@@ -86,6 +84,19 @@ System::Void MyForm::optionsToolStripMenuItem_Click(System::Object^  sender, Sys
 		this->reuseLetters = optionsDialog->getLetterReuse();
 		this->timeLimit = optionsDialog->getTimeLimit();
 	}
+}
+
+System::Void MyForm::exitToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
+			 Form::Close();
+		 }
+
+System::Void MyForm::newGameToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
+	this->nameBox->Text = "";
+	this->lettersBox->Text = "";
+	this->shuffleButton->Enabled = false;
+	this->generateButton->Enabled = false;
+	this->submitButton->Enabled = false;
+	this->scoreLabel->Text = "0";
 }
 
 }

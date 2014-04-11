@@ -71,6 +71,8 @@ namespace Project1 {
 	private: System::Void submitButton_Click(System::Object^  sender, System::EventArgs^  e);
 	private: String^ removeCharacters(String^ ofWord, String^ fromString);
 	private: System::Void optionsToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void exitToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void newGameToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
 	private:
 		/// <summary>
 		/// Required designer variable.
@@ -265,6 +267,7 @@ namespace Project1 {
 			this->newGameToolStripMenuItem->Name = L"newGameToolStripMenuItem";
 			this->newGameToolStripMenuItem->Size = System::Drawing::Size(179, 30);
 			this->newGameToolStripMenuItem->Text = L"New Game";
+			this->newGameToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::newGameToolStripMenuItem_Click);
 			// 
 			// highScoresToolStripMenuItem
 			// 
@@ -284,6 +287,7 @@ namespace Project1 {
 			this->exitToolStripMenuItem->Name = L"exitToolStripMenuItem";
 			this->exitToolStripMenuItem->Size = System::Drawing::Size(179, 30);
 			this->exitToolStripMenuItem->Text = L"Exit";
+			this->exitToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::exitToolStripMenuItem_Click);
 			// 
 			// MyForm
 			// 
@@ -313,6 +317,5 @@ namespace Project1 {
 
 		}
 #pragma endregion
-
 };
 }
