@@ -1,6 +1,7 @@
 #pragma once
 
 #include "FileIO.h"
+#include "Word.h"
 using namespace System::Collections::Generic;
 using namespace System;
 using namespace model;
@@ -12,18 +13,14 @@ private:
 	List<String^>^ wordList;
 	FileIO^ fileIO;
 
-	int getMidpoint(int first, int last);
-	int binarySearchWord(String^ word, int first, int last);
-	List<char>^ stringToChars(String^ word);
 	Player^ player;
 public:
 	GameController();
 
-	bool contains(String^ word);
 	String^ getRandomLetters(int totalLetters);
 	String^ shuffleLetters(String^ lettersToShuffle);
-	void setName(String^ name);
-	bool wordIsValidAndAllowed(String^ word, String^ allowedCharacters);
-	bool wordContainsAllowedCharacters(String^word, String^ allowedCharacters);
+	void setPlayerName(String^ name);
+	List<char>^ stringToChars(String^ toConvert);
+	bool isWordValid(Word^ word, String^ allowedLetters);
 };
 }

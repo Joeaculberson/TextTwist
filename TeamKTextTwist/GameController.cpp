@@ -12,34 +12,6 @@ GameController::GameController()
 	this->player = gcnew Player();
 }
 
-int GameController::binarySearchWord(String^ word, int first, int last) {
-	if (last < first) {
-		return -1;
-	}
-
-	int mid = this->getMidpoint(first, last);
-	if (String::Compare(this->wordList[mid], word) > 1) {
-		return this->binarySearchWord(word, first, mid - 1);
-	} else if (String::Compare(this->wordList[mid], word) < 1) {
-		return this->binarySearchWord(word, mid + 1, last);
-	} else {
-		return mid;
-	}
-}
-
-int GameController::getMidpoint(int first, int last) {
-	return (first + (last - first)) / 2;
-}
-
-bool GameController::contains(String^ word) {
-	int index = this->binarySearchWord(word, 0, this->wordList->Count - 1);
-	if (index != -1) {
-		return true;
-	} else {
-		return false;
-	}
-}
-
 /**
  * Returns the specified number of random letters.
  *
@@ -89,38 +61,21 @@ String^ GameController::shuffleLetters(String^ lettersToShuffle) {
 	return builder->ToString();
 }
 
-List<char>^ GameController::stringToChars(String^ word) {
+List<char>^ GameController::stringToChars(String^ toConvert) {
 	List<char>^ letters = gcnew List<char>();
-	for (int i = 0; i < word->Length; i++) {
-		letters->Add(word[i]);
+	for (int i = 0; i < toConvert->Length; i++) {
+		letters->Add(toConvert[i]);
 	}
 	return letters;
 }
 
-void GameController::setName(String^ name) {
+void GameController::setPlayerName(String^ name) {
 	this->player->setName(name);
 }
 
-bool GameController::wordIsValidAndAllowed(String^ word, String^ allowedCharacters) {
-	if (this->wordContainsAllowedCharacters(word, allowedCharacters)) {
-		if (this->contains(word)) {
-			return true;
-		}
-	} else {
-		return false;
-	}
-}
-
-bool GameController::wordContainsAllowedCharacters(String^ word, String^ allowedCharacters) {
-	List<char>^ allowedArray = this->stringToChars(allowedCharacters);
-	bool allowed = true;
-	for (int i = 0; i < word->Length; i++) {
-		if (!allowedArray->Contains(word[i])) {
-			return false;
-		}
-	}
-
-	return true;
+bool GameController::isWordValid(Word^ word, String^ allowedLetters) {
+	List<char>^ allowedList = this->stringToChars(allowedLetters);
+	return word->isValid(this->wordList, allowedList);
 }
 
 }

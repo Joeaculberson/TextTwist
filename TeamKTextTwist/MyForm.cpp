@@ -33,13 +33,22 @@ System::Void MyForm::nameBox_TextChanged(System::Object^ sender, System::EventAr
 
 System::Void MyForm::startButton_Click(System::Object^  sender, System::EventArgs^  e) {
 	String^ playerName = this->nameBox->Text;
+	//this->gc->setPlayerName(playerName);
 	this->generateButton->Enabled = true;
 	this->shuffleButton->Enabled = true;
 	this->submitButton->Enabled = true;
 }
 
 System::Void MyForm::submitButton_Click(System::Object^  sender, System::EventArgs^  e) {
-	
+	if (this->guessBox->Text->Length != 0) {
+		String^ value = this->guessBox->Text;
+		Word^ newWord = gcnew Word(value);
+		String^ allowedLetters = this->lettersBox->Text;
+		if (this->gc->isWordValid(newWord, allowedLetters)) {
+			this->guessedWords->AppendText(value + "\n");
+		} else {
+			MessageBox::Show("Word not allowed.");
+		}
+	}
 }
-
 }

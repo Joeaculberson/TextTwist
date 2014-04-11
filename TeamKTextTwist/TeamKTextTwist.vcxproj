@@ -78,6 +78,7 @@
     <ClCompile Include="MyForm.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="WinCLI.cpp" />
+    <ClCompile Include="Word.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -93,6 +94,7 @@
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Word.h" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MyForm.resx">
