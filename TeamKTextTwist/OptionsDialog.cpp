@@ -4,11 +4,11 @@ namespace TeamKTextTwist {
 
 int OptionsDialog::getTimeLimit() {
 	if(this->minuteOneButton->Checked) {
-		return 1;
+		return ONE_MINUTE;
 	} else if (this->minuteTwoButton->Checked) {
-		return 2;
-	} else if (this->minuteThreeButton->Checked) {
-		return 3;
+		return TWO_MINUTES;
+	} else {
+		return THREE_MINUTES;
 	}
 }
 
