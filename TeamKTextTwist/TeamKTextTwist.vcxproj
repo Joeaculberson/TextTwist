@@ -75,6 +75,7 @@
   <ItemGroup>
     <ClCompile Include="FileIO.cpp" />
     <ClCompile Include="GameController.cpp" />
+    <ClCompile Include="HighScoresDialog.cpp" />
     <ClCompile Include="MyForm.cpp" />
     <ClCompile Include="OptionsDialog.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -91,6 +92,9 @@
   <ItemGroup>
     <ClInclude Include="FileIO.h" />
     <ClInclude Include="GameController.h" />
+    <ClInclude Include="HighScoresDialog.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="MyForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
@@ -101,6 +105,9 @@
     <ClInclude Include="Word.h" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="HighScoresDialog.resx">
+      <DependentUpon>HighScoresDialog.h</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="OptionsDialog.resx">
       <DependentUpon>OptionsDialog.h</DependentUpon>
     </EmbeddedResource>

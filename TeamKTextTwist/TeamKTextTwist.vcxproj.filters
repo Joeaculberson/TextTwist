@@ -44,6 +44,9 @@
     <ClCompile Include="Word.cpp">
       <Filter>Source Files\model</Filter>
     </ClCompile>
+    <ClCompile Include="HighScoresDialog.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MyForm.h">
@@ -64,5 +67,11 @@
     <ClInclude Include="OptionsDialog.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="HighScoresDialog.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="OptionsDialog.resx" />
   </ItemGroup>
 </Project>
