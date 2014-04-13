@@ -1,6 +1,6 @@
 #include "OptionsDialog.h"
 
-namespace TeamKTextTwist {
+namespace controller {
 
 int OptionsDialog::getTimeLimit() {
 	if(this->minuteOneButton->Checked) {

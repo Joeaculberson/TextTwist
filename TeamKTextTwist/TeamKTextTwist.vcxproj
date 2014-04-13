@@ -108,6 +108,9 @@
     <EmbeddedResource Include="HighScoresDialog.resx">
       <DependentUpon>HighScoresDialog.h</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="MyForm.resx">
+      <DependentUpon>MyForm.h</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="OptionsDialog.resx">
       <DependentUpon>OptionsDialog.h</DependentUpon>
     </EmbeddedResource>

@@ -7,7 +7,8 @@ using namespace System::Text;
 using namespace model;
 
 #include "OptionsDialog.h"
-using namespace TeamKTextTwist;
+#include "HighScoresDialog.h"
+using namespace controller;
 
 namespace Project1 {
 
@@ -97,5 +98,11 @@ System::Void MyForm::newGameToolStripMenuItem_Click(System::Object^  sender, Sys
 	this->submitButton->Enabled = false;
 	this->scoreLabel->Text = "0";
 }
+
+System::Void MyForm::highScoresToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
+	HighScoresDialog^ highScoreDialog = gcnew HighScoresDialog();
+	highScoreDialog->ShowDialog();
+}
+
 
 }

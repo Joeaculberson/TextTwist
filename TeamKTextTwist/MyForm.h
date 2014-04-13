@@ -74,6 +74,7 @@ namespace Project1 {
 	private: System::Void optionsToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void exitToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void newGameToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void highScoresToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
 	private:
 		/// <summary>
 		/// Required designer variable.
@@ -275,6 +276,7 @@ namespace Project1 {
 			this->highScoresToolStripMenuItem->Name = L"highScoresToolStripMenuItem";
 			this->highScoresToolStripMenuItem->Size = System::Drawing::Size(179, 30);
 			this->highScoresToolStripMenuItem->Text = L"High Scores";
+			this->highScoresToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::highScoresToolStripMenuItem_Click);
 			// 
 			// optionsToolStripMenuItem
 			// 

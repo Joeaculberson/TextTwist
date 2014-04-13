@@ -45,6 +45,18 @@ namespace controller {
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^  nameColumn;
 	protected: 
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^  scoreColumn;
+
+	protected: 
+
+
+	protected: 
+
+
+	protected: 
+
+
+	protected: 
+
 	private: System::Windows::Forms::DataGridView^  highScoreGrid;
 	protected: 
 
@@ -81,6 +93,7 @@ namespace controller {
 				this->scoreColumn});
 			this->highScoreGrid->Location = System::Drawing::Point(12, 12);
 			this->highScoreGrid->Name = L"highScoreGrid";
+			this->highScoreGrid->ReadOnly = true;
 			this->highScoreGrid->RowTemplate->Height = 28;
 			this->highScoreGrid->Size = System::Drawing::Size(730, 465);
 			this->highScoreGrid->TabIndex = 0;
@@ -90,13 +103,15 @@ namespace controller {
 			// 
 			this->nameColumn->HeaderText = L"Name";
 			this->nameColumn->Name = L"nameColumn";
-			this->nameColumn->Width = 344;
+			this->nameColumn->ReadOnly = true;
+			this->nameColumn->Width = 222;
 			// 
 			// scoreColumn
 			// 
 			this->scoreColumn->HeaderText = L"Score";
 			this->scoreColumn->Name = L"scoreColumn";
-			this->scoreColumn->Width = 343;
+			this->scoreColumn->ReadOnly = true;
+			this->scoreColumn->Width = 222;
 			// 
 			// HighScoresDialog
 			// 

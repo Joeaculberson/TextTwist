@@ -1,6 +1,6 @@
 #pragma once
 
-namespace TeamKTextTwist {
+namespace controller {
 
 	using namespace System;
 	using namespace System::ComponentModel;
