@@ -37,7 +37,7 @@ System::Void MyForm::optionsToolStripMenuItem_Click(System::Object^  sender, Sys
 }
 
 System::Void MyForm::exitToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
-			 Form::Close();
+	Form::Close();
 }
 
 System::Void MyForm::newGameToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
@@ -45,8 +45,15 @@ System::Void MyForm::newGameToolStripMenuItem_Click(System::Object^  sender, Sys
 }
 
 System::Void MyForm::highScoresToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
-	HighScoresDialog^ highScoreDialog = gcnew HighScoresDialog();
-	highScoreDialog->ShowDialog();
+	FileIO^ file = gcnew FileIO();
+	List<Player^>^ highScores = file->loadHighScores();
+	if (highScores->Count == 0) {
+		MessageBox::Show("There are no high scores to display.");
+	} else {
+		HighScoresDialog^ highScoreDialog = gcnew HighScoresDialog(highScores);
+		highScoreDialog->ShowDialog();
+	}
+	
 }
 
 System::Void MyForm::clearAllButton_Click(System::Object^ sender, System::EventArgs^ e) {
