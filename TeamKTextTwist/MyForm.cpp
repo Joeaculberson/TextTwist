@@ -35,7 +35,7 @@ System::Void MyForm::nameBox_TextChanged(System::Object^ sender, System::EventAr
 
 System::Void MyForm::startButton_Click(System::Object^  sender, System::EventArgs^  e) {
 	String^ playerName = this->nameBox->Text;
-	//this->gc->setPlayerName(playerName);
+	this->gc->setPlayerName(playerName);
 	this->generateButton->Enabled = true;
 	this->submitButton->Enabled = true;
 }
@@ -94,12 +94,7 @@ System::Void MyForm::exitToolStripMenuItem_Click(System::Object^  sender, System
 		 }
 
 System::Void MyForm::newGameToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
-	this->nameBox->Text = "";
-	this->lettersBox->Text = "";
-	this->shuffleButton->Enabled = false;
-	this->generateButton->Enabled = false;
-	this->submitButton->Enabled = false;
-	this->scoreLabel->Text = "0";
+	this->startNewGame();
 }
 
 System::Void MyForm::highScoresToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
@@ -107,5 +102,22 @@ System::Void MyForm::highScoresToolStripMenuItem_Click(System::Object^  sender, 
 	highScoreDialog->ShowDialog();
 }
 
+System::Void MyForm::clearAllButton_Click(System::Object^ sender, System::EventArgs^ e) {
+	this->guessBox->Text = "";
+}
 
+System::Void MyForm::newGameButton_Click(System::Object^ sender, System::EventArgs^ e) {
+	this->startNewGame();
+}
+
+void MyForm::startNewGame() {
+	this->nameBox->Text = "";
+	this->lettersBox->Text = "";
+	this->shuffleButton->Enabled = false;
+	this->generateButton->Enabled = false;
+	this->submitButton->Enabled = false;
+	this->gc->createNewPlayer();
+	this->scoreLabel->Text = this->gc->getPlayerScoreString();
+	this->guessedWords->Text = "";
+}
 }

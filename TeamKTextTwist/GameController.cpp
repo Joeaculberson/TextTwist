@@ -86,6 +86,10 @@ void GameController::decrementPlayerScore() {
 	this->player->setScore(this->player->getScore() - 1);
 }
 
+void GameController::createNewPlayer() {
+	this->player = gcnew Player();
+}
+
 String^ GameController::getPlayerScoreString() {
 	return this->player->getScoreString();
 }
