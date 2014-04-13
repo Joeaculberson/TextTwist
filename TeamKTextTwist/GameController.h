@@ -12,7 +12,6 @@ ref class GameController
 private:
 	List<String^>^ wordList;
 	FileIO^ fileIO;
-
 	Player^ player;
 public:
 	GameController();
