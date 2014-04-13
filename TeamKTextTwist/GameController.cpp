@@ -32,14 +32,13 @@ String^ GameController::getRandomLetters(int totalLetters) {
 		'm', 'p', 'p', 'v', 'v', 'j', 'k', 'q', 'x', 'z' };
 	StringBuilder^ builder = gcnew StringBuilder();
 	for (int i = 0; i < totalLetters; i++) {
-		int randomIndex = generator->Next(0, letters->Length);
 		char randomLetter;
 		do {
+			int randomIndex = generator->Next(0, letters->Length);
 			randomLetter = letters[randomIndex];
-			builder->Append(Char::ToString(randomLetter));
-
 			letters[randomIndex] = '?';
 		} while (randomLetter == '?');
+		builder->Append(Char::ToString(randomLetter));
 	}
 	return builder->ToString();
 }
