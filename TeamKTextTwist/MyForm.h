@@ -63,7 +63,7 @@ namespace Project1 {
 	private: GameController^ gc;
 	private: int timeLimit;
 	private: bool reuseLetters;
-	private: int static const DEFAULT_TIME_LIMIT = 2;
+	private: int static const DEFAULT_TIME_LIMIT = 1;
 
 	private: System::Void generateButton_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void shuffleButton_Click(System::Object^  sender, System::EventArgs^  e);

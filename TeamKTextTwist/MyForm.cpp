@@ -49,8 +49,11 @@ System::Void MyForm::submitButton_Click(System::Object^  sender, System::EventAr
 			int pointValue = newWord->getPointValue();
 			this->guessedWords->AppendText(value + " (" + pointValue + ")" + "\n");
 			this->gc->incrementPlayerScore(pointValue);
-			String^ newAllowedLetters = this->removeCharacters(value, allowedLetters);
-			this->lettersBox->Text = newAllowedLetters;
+			if (!this->reuseLetters)
+			{
+				String^ newAllowedLetters = this->removeCharacters(value, allowedLetters);
+				this->lettersBox->Text = newAllowedLetters; 
+			}
 			this->scoreLabel->Text = this->gc->getPlayerScoreString();
 		} else {
 			MessageBox::Show("Word not allowed. You have lost one point.");

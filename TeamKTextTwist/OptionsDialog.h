@@ -97,9 +97,11 @@ namespace controller {
 			this->groupBoxTimer->Controls->Add(this->minuteThreeButton);
 			this->groupBoxTimer->Controls->Add(this->minuteTwoButton);
 			this->groupBoxTimer->Controls->Add(this->minuteOneButton);
-			this->groupBoxTimer->Location = System::Drawing::Point(25, 29);
+			this->groupBoxTimer->Location = System::Drawing::Point(17, 19);
+			this->groupBoxTimer->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->groupBoxTimer->Name = L"groupBoxTimer";
-			this->groupBoxTimer->Size = System::Drawing::Size(176, 144);
+			this->groupBoxTimer->Padding = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->groupBoxTimer->Size = System::Drawing::Size(117, 94);
 			this->groupBoxTimer->TabIndex = 0;
 			this->groupBoxTimer->TabStop = false;
 			this->groupBoxTimer->Text = L"Timer";
@@ -107,9 +109,10 @@ namespace controller {
 			// minuteThreeButton
 			// 
 			this->minuteThreeButton->AutoSize = true;
-			this->minuteThreeButton->Location = System::Drawing::Point(26, 96);
+			this->minuteThreeButton->Location = System::Drawing::Point(17, 62);
+			this->minuteThreeButton->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->minuteThreeButton->Name = L"minuteThreeButton";
-			this->minuteThreeButton->Size = System::Drawing::Size(103, 24);
+			this->minuteThreeButton->Size = System::Drawing::Size(70, 17);
 			this->minuteThreeButton->TabIndex = 1;
 			this->minuteThreeButton->Text = L"3 minutes";
 			this->minuteThreeButton->UseVisualStyleBackColor = true;
@@ -117,9 +120,10 @@ namespace controller {
 			// minuteTwoButton
 			// 
 			this->minuteTwoButton->AutoSize = true;
-			this->minuteTwoButton->Location = System::Drawing::Point(26, 66);
+			this->minuteTwoButton->Location = System::Drawing::Point(17, 43);
+			this->minuteTwoButton->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->minuteTwoButton->Name = L"minuteTwoButton";
-			this->minuteTwoButton->Size = System::Drawing::Size(103, 24);
+			this->minuteTwoButton->Size = System::Drawing::Size(70, 17);
 			this->minuteTwoButton->TabIndex = 1;
 			this->minuteTwoButton->Text = L"2 minutes";
 			this->minuteTwoButton->UseVisualStyleBackColor = true;
@@ -127,9 +131,10 @@ namespace controller {
 			// minuteOneButton
 			// 
 			this->minuteOneButton->AutoSize = true;
-			this->minuteOneButton->Location = System::Drawing::Point(26, 36);
+			this->minuteOneButton->Location = System::Drawing::Point(17, 23);
+			this->minuteOneButton->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->minuteOneButton->Name = L"minuteOneButton";
-			this->minuteOneButton->Size = System::Drawing::Size(95, 24);
+			this->minuteOneButton->Size = System::Drawing::Size(65, 17);
 			this->minuteOneButton->TabIndex = 0;
 			this->minuteOneButton->Text = L"1 minute";
 			this->minuteOneButton->UseVisualStyleBackColor = true;
@@ -137,9 +142,10 @@ namespace controller {
 			// submitTimer
 			// 
 			this->submitTimer->DialogResult = System::Windows::Forms::DialogResult::OK;
-			this->submitTimer->Location = System::Drawing::Point(238, 204);
+			this->submitTimer->Location = System::Drawing::Point(159, 133);
+			this->submitTimer->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->submitTimer->Name = L"submitTimer";
-			this->submitTimer->Size = System::Drawing::Size(129, 37);
+			this->submitTimer->Size = System::Drawing::Size(86, 24);
 			this->submitTimer->TabIndex = 1;
 			this->submitTimer->Text = L"Submit";
 			this->submitTimer->UseVisualStyleBackColor = true;
@@ -147,9 +153,10 @@ namespace controller {
 			// cancelTimer
 			// 
 			this->cancelTimer->DialogResult = System::Windows::Forms::DialogResult::Cancel;
-			this->cancelTimer->Location = System::Drawing::Point(44, 204);
+			this->cancelTimer->Location = System::Drawing::Point(29, 133);
+			this->cancelTimer->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->cancelTimer->Name = L"cancelTimer";
-			this->cancelTimer->Size = System::Drawing::Size(129, 37);
+			this->cancelTimer->Size = System::Drawing::Size(86, 24);
 			this->cancelTimer->TabIndex = 2;
 			this->cancelTimer->Text = L"Cancel";
 			this->cancelTimer->UseVisualStyleBackColor = true;
@@ -157,22 +164,24 @@ namespace controller {
 			// letterReuse
 			// 
 			this->letterReuse->AutoSize = true;
-			this->letterReuse->Location = System::Drawing::Point(238, 95);
+			this->letterReuse->Location = System::Drawing::Point(159, 62);
+			this->letterReuse->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->letterReuse->Name = L"letterReuse";
-			this->letterReuse->Size = System::Drawing::Size(128, 24);
+			this->letterReuse->Size = System::Drawing::Size(87, 17);
 			this->letterReuse->TabIndex = 3;
 			this->letterReuse->Text = L"Letter Reuse";
 			this->letterReuse->UseVisualStyleBackColor = true;
 			// 
 			// OptionsDialog
 			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(9, 20);
+			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(410, 269);
+			this->ClientSize = System::Drawing::Size(273, 175);
 			this->Controls->Add(this->letterReuse);
 			this->Controls->Add(this->cancelTimer);
 			this->Controls->Add(this->submitTimer);
 			this->Controls->Add(this->groupBoxTimer);
+			this->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->Name = L"OptionsDialog";
 			this->Text = L"Options";
 			this->groupBoxTimer->ResumeLayout(false);
