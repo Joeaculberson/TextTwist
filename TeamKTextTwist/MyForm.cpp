@@ -46,7 +46,7 @@ System::Void MyForm::newGameToolStripMenuItem_Click(System::Object^  sender, Sys
 
 System::Void MyForm::highScoresToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 	FileIO^ file = gcnew FileIO();
-	List<Player^>^ highScores = file->loadHighScores();
+	List<HighScore^>^ highScores = file->loadHighScores();
 	if (highScores->Count == 0) {
 		MessageBox::Show("There are no high scores to display.");
 	} else {

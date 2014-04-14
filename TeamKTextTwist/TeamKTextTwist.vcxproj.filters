@@ -47,6 +47,9 @@
     <ClCompile Include="HighScoresDialog.cpp">
       <Filter>Header Files</Filter>
     </ClCompile>
+    <ClCompile Include="HighScore.cpp">
+      <Filter>Source Files\model</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MyForm.h">
@@ -70,8 +73,13 @@
     <ClInclude Include="HighScoresDialog.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="HighScore.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="OptionsDialog.resx" />
+    <EmbeddedResource Include="HighScoresDialog.resx" />
+    <EmbeddedResource Include="MyForm.resx" />
   </ItemGroup>
 </Project>

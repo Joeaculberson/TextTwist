@@ -1,13 +1,10 @@
 #include "HighScoresDialog.h"
 
-using namespace System::Collections::Generic;
-using namespace System;
-
 namespace controller {
 
-void HighScoresDialog::addHighScore(Player^ player)
+void HighScoresDialog::addHighScore(HighScore^ highScore)
 {
-	this->highScoreGrid->Rows->Add(player->getName(), player->getScore());
+	this->highScoreGrid->Rows->Add(highScore->getPlayer()->getName(), highScore->getPlayer()->getScore(), highScore->getTimeAllotted());
 }
 
 System::Void HighScoresDialog::resetBtn_Click(System::Object^  sender, System::EventArgs^  e) {

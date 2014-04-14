@@ -2,8 +2,10 @@
 
 #include "Player.h"
 #include "FileIO.h"
+#include "HighScore.h"
 using namespace model;
 
+using namespace System::Collections::Generic;
 
 namespace controller {
 
@@ -20,13 +22,13 @@ namespace controller {
 	public ref class HighScoresDialog : public System::Windows::Forms::Form
 	{
 	public:
-		HighScoresDialog(List<Player^>^ highScores)
+		HighScoresDialog(List<HighScore^>^ highScores)
 		{
 			InitializeComponent();
 			if (highScores->Count == 0) {
 				MessageBox::Show("There are no high scores to display.");
 			} else {
-				for each (Player^ currPlayer in highScores)
+				for each (HighScore^ currPlayer in highScores)
 				{
 					this->addHighScore(currPlayer);
 				}
@@ -44,41 +46,23 @@ namespace controller {
 				delete components;
 			}
 		}
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^  nameColumn;
+
 	protected: 
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^  scoreColumn;
+
 	private: System::Windows::Forms::Button^  resetBtn;
 	private: System::Windows::Forms::Button^  closeBtn;
-
-	protected: 
-
-
-
-	protected: 
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^  nameColumn;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^  scoreColumn;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^  timeAllotted;
 
 
-	protected: 
 
-
-	protected: 
-
-
-	protected: 
-
-
-	protected: 
-
-
-	protected: 
 
 	private: System::Windows::Forms::DataGridView^  highScoreGrid;
 	private: System::Void resetBtn_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void closeBtn_Click(System::Object^  sender, System::EventArgs^  e);
-
+	private: void addHighScore(HighScore^ highScore);
 	protected: 
-
-
-	private: void addHighScore(Player^ player);
 
 	private:
 		/// <summary>
@@ -94,10 +78,11 @@ namespace controller {
 		void InitializeComponent(void)
 		{
 			this->highScoreGrid = (gcnew System::Windows::Forms::DataGridView());
-			this->nameColumn = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->scoreColumn = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->resetBtn = (gcnew System::Windows::Forms::Button());
 			this->closeBtn = (gcnew System::Windows::Forms::Button());
+			this->nameColumn = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->scoreColumn = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->timeAllotted = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->highScoreGrid))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -108,34 +93,19 @@ namespace controller {
 			this->highScoreGrid->AllowUserToResizeColumns = false;
 			this->highScoreGrid->AllowUserToResizeRows = false;
 			this->highScoreGrid->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			this->highScoreGrid->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(2) {this->nameColumn, 
-				this->scoreColumn});
+			this->highScoreGrid->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(3) {this->nameColumn, 
+				this->scoreColumn, this->timeAllotted});
 			this->highScoreGrid->Location = System::Drawing::Point(12, 12);
 			this->highScoreGrid->Name = L"highScoreGrid";
 			this->highScoreGrid->ReadOnly = true;
 			this->highScoreGrid->RowHeadersVisible = false;
 			this->highScoreGrid->RowTemplate->Height = 28;
-			this->highScoreGrid->Size = System::Drawing::Size(690, 585);
+			this->highScoreGrid->Size = System::Drawing::Size(724, 469);
 			this->highScoreGrid->TabIndex = 0;
-			this->highScoreGrid->CellContentClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &HighScoresDialog::highScoreGrid_CellContentClick);
-			// 
-			// nameColumn
-			// 
-			this->nameColumn->HeaderText = L"Name";
-			this->nameColumn->Name = L"nameColumn";
-			this->nameColumn->ReadOnly = true;
-			this->nameColumn->Width = 222;
-			// 
-			// scoreColumn
-			// 
-			this->scoreColumn->HeaderText = L"Score";
-			this->scoreColumn->Name = L"scoreColumn";
-			this->scoreColumn->ReadOnly = true;
-			this->scoreColumn->Width = 222;
 			// 
 			// resetBtn
 			// 
-			this->resetBtn->Location = System::Drawing::Point(121, 603);
+			this->resetBtn->Location = System::Drawing::Point(145, 495);
 			this->resetBtn->Name = L"resetBtn";
 			this->resetBtn->Size = System::Drawing::Size(171, 33);
 			this->resetBtn->TabIndex = 1;
@@ -145,7 +115,7 @@ namespace controller {
 			// 
 			// closeBtn
 			// 
-			this->closeBtn->Location = System::Drawing::Point(417, 603);
+			this->closeBtn->Location = System::Drawing::Point(441, 495);
 			this->closeBtn->Name = L"closeBtn";
 			this->closeBtn->Size = System::Drawing::Size(171, 33);
 			this->closeBtn->TabIndex = 2;
@@ -153,11 +123,32 @@ namespace controller {
 			this->closeBtn->UseVisualStyleBackColor = true;
 			this->closeBtn->Click += gcnew System::EventHandler(this, &HighScoresDialog::closeBtn_Click);
 			// 
+			// nameColumn
+			// 
+			this->nameColumn->HeaderText = L"Name";
+			this->nameColumn->Name = L"nameColumn";
+			this->nameColumn->ReadOnly = true;
+			this->nameColumn->Width = 160;
+			// 
+			// scoreColumn
+			// 
+			this->scoreColumn->HeaderText = L"Score";
+			this->scoreColumn->Name = L"scoreColumn";
+			this->scoreColumn->ReadOnly = true;
+			this->scoreColumn->Width = 160;
+			// 
+			// timeAllotted
+			// 
+			this->timeAllotted->HeaderText = L"Time Allotted (minutes)";
+			this->timeAllotted->Name = L"timeAllotted";
+			this->timeAllotted->ReadOnly = true;
+			this->timeAllotted->Width = 160;
+			// 
 			// HighScoresDialog
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(9, 20);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(714, 645);
+			this->ClientSize = System::Drawing::Size(750, 541);
 			this->Controls->Add(this->closeBtn);
 			this->Controls->Add(this->resetBtn);
 			this->Controls->Add(this->highScoreGrid);
@@ -168,7 +159,5 @@ namespace controller {
 
 		}
 #pragma endregion
-	private: System::Void highScoreGrid_CellContentClick(System::Object^  sender, System::Windows::Forms::DataGridViewCellEventArgs^  e) {
-			 }
 };
 }

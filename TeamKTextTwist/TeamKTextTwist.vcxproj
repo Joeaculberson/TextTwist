@@ -75,6 +75,7 @@
   <ItemGroup>
     <ClCompile Include="FileIO.cpp" />
     <ClCompile Include="GameController.cpp" />
+    <ClCompile Include="HighScore.cpp" />
     <ClCompile Include="HighScoresDialog.cpp" />
     <ClCompile Include="MyForm.cpp" />
     <ClCompile Include="OptionsDialog.cpp" />
@@ -92,6 +93,7 @@
   <ItemGroup>
     <ClInclude Include="FileIO.h" />
     <ClInclude Include="GameController.h" />
+    <ClInclude Include="HighScore.h" />
     <ClInclude Include="HighScoresDialog.h">
       <FileType>CppForm</FileType>
     </ClInclude>

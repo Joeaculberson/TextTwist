@@ -5,10 +5,6 @@ using namespace System::Text;
 
 #include "FileIO.h"
 
-#include <algorithm>
-#include <vector>
-using namespace std;
-
 namespace model {
 
 /**
@@ -50,11 +46,11 @@ List<String^>^ FileIO::parseFile()
 	return words;
 }
 
-void FileIO::addHighScore(Player^ player) {
-	List<Player^>^ highScores = this->loadHighScores();
-	highScores->Add(player);
+void FileIO::addHighScore(HighScore^ highScore) {
+	List<HighScore^>^ highScores = this->loadHighScores();
+	highScores->Add(highScore);
 
-	Comparison<Player^>^ comparisonDelegate = gcnew Comparison<Player^>(&compare);
+	Comparison<HighScore^>^ comparisonDelegate = gcnew Comparison<HighScore^>(&compare);
 	highScores->Sort(comparisonDelegate);
 
 	if (highScores->Count >= MAX_HIGH_SCORES) {
@@ -64,7 +60,7 @@ void FileIO::addHighScore(Player^ player) {
 	StreamWriter^ sw = gcnew StreamWriter(L"highscores.txt");
 	for (int i = 0; i < highScores->Count; i++)
 	{
-		sw->WriteLine(highScores[i]->getName() + "/" + Convert::ToString(highScores[i]->getScore()));
+		sw->WriteLine(highScores[i]->getPlayer()->getName() + "/" + Convert::ToString(highScores[i]->getPlayer()->getScore()));
 	}
 	sw->Flush();
 	sw->Close();
@@ -74,9 +70,9 @@ void FileIO::clearList() {
 	File::Create(L"highscores.txt")->Close();
 }
 
-List<Player^>^ FileIO::loadHighScores() {
+List<HighScore^>^ FileIO::loadHighScores() {
 	String^ fileName = L"highscores.txt";
-	List<Player^>^ highScores = gcnew List<Player^>();
+	List<HighScore^>^ highScores = gcnew List<HighScore^>();
 	StreamReader^ input = File::OpenText(fileName);
 	String^ line;
 
@@ -84,8 +80,9 @@ List<Player^>^ FileIO::loadHighScores() {
 		array<String^>^ rawPerson = line->Split('/');
 		Player^ player = gcnew Player(rawPerson[0]);
 		player->setScore(Convert::ToInt32(rawPerson[1]));
+		HighScore^ highScore = gcnew HighScore(player, Convert::ToInt32(rawPerson[2]));
 
-		highScores->Add(player);
+		highScores->Add(highScore);
 	}
 	input->Close();
 
