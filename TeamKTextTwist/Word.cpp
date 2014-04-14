@@ -12,6 +12,10 @@ Word::Word(String^ value)
 	this->value = value;
 }
 
+String^ Word::getValue() {
+	return this->value;
+}
+
 bool Word::containsAllowedCharacters(List<char>^ allowedList) {
 	bool allowed = true;
 	for (int i = 0; i < this->value->Length; i++) {

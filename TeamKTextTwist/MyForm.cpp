@@ -64,7 +64,7 @@ System::Void MyForm::lettersBox_Click(System::Object^ sender, System::EventArgs^
 	this->newGameButton->Focus();
 }
 
-System::Void MyForm::guessedWords_Click(System::Object^ sender, System::EventArgs^ e) {
+System::Void MyForm::guessedWordsBox_Click(System::Object^ sender, System::EventArgs^ e) {
 	this->newGameButton->Focus();
 }
 
@@ -75,7 +75,7 @@ void MyForm::startNewGame() {
 	this->submitButton->Enabled = false;
 	this->gc->createNewPlayer();
 	this->scoreLabel->Text = this->gc->getPlayerScoreString();
-	this->guessedWords->Text = "";
+	this->guessedWordsBox->Text = "";
 	this->timer->Stop();
 	this->timerLabel->Text = this->userSetTimeLimit + ":00";
 }
@@ -94,7 +94,7 @@ void MyForm::handleWordEntry() {
 	String^ allowedLetters = this->lettersBox->Text;
 	if (this->gc->isWordValid(newWord, allowedLetters, this->reuseLetters)) {
 		int pointValue = newWord->getPointValue();
-		this->guessedWords->AppendText(value + " (" + pointValue + ")" + "\n");
+		this->guessedWordsBox->AppendText(value + " (" + pointValue + ")" + "\n");
 		this->gc->incrementPlayerScore(pointValue);
 		//this->performIfReuseIsOff(value, allowedLetters);
 		this->scoreLabel->Text = this->gc->getPlayerScoreString();
@@ -117,7 +117,8 @@ void MyForm::submitWord() {
 }
 
 void MyForm::handleGenerateEvent() {
-	this->lettersBox->Text = gc->getRandomLetters(7);
+	this->generatedLetters = gc->getRandomLetters(7);
+	this->lettersBox->Text = this->generatedLetters;
 	this->shuffleButton->Enabled = true;
 }
 
@@ -197,18 +198,34 @@ System::Void MyForm::timer_Tick(System::Object^  sender, System::EventArgs^  e) 
     }
     else
     {
-        this->timer->Stop();
-        timerLabel->Text = "0:00";
+        this->endGame();
 		MessageBox::Show("Time up! Game over.");
+    }
+}
+
+void MyForm::endGame() {
+	this->timer->Stop();
+        timerLabel->Text = "0:00";
+		
         this->nameBox->Text = "";
 		this->shuffleButton->Enabled = false;
 		this->submitButton->Enabled = false;
 		this->clearAllButton->Enabled = false;
 		this->timeLimit = this->userSetTimeLimit;
 
+		List<String^>^ correctWords = this->gc->getAllPossibleWords(this->generatedLetters);
+		for each (String^ currCorrectWord in correctWords)
+		{
+			this->guessedWordsBox->AppendText(currCorrectWord + Environment::NewLine);
+		}
+
 		HighScore^ highScore = gcnew HighScore(this->gc->getPlayer(), this->userSetTimeLimit);
 		this->file->addHighScore(highScore);
-    }
 }
+
+System::Void MyForm::giveUpBtn_Click(System::Object^  sender, System::EventArgs^  e) {
+	this->endGame();
+}
+
 
 }

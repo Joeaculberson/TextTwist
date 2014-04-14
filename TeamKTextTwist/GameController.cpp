@@ -11,6 +11,7 @@ GameController::GameController()
 	this->wordList = this->fileIO->parseFile();
 	int length = this->wordList->Count;
 	this->player = gcnew Player();
+	this->allPermutations = gcnew List<String^>();
 }
 
 /**
@@ -44,8 +45,36 @@ String^ GameController::getRandomLetters(int totalLetters) {
 }
 
 /// get every permutation of the string, compare to dictionary, if it's a match, add to list.
-List<String^>^ GameController::getAllPossibleWords(List<char>^ letters) {
-	//code should be online...
+List<String^>^ GameController::getAllPossibleWords(String^ letters) {
+	this->permutation(letters);
+	for each (String^ currPermutation in this->allPermutations) {
+		Word^ currWord = gcnew Word(currPermutation);
+		if (currWord->isInDictionary(this->wordList)) {
+			this->correctWords->Add(currWord->getValue());
+		}
+	}
+	return this->correctWords;
+}
+
+void GameController::permutation(String^ str) { 
+    permutation("", str); 
+}
+
+void GameController::permutation(String^ prefix, String^ str) {
+	int n = str->Length;
+    if (n == 0) {
+		this->allPermutations->Add(prefix);
+	}
+    else {
+        for (int i = 0; i < n; i++) {
+			permutation(prefix + Char::ToString(str[i]), mySubString(str, 0, i) + mySubString(str, i+1, n));
+		}
+    }
+}
+
+String^ GameController::mySubString(String^ s,int start,int end)
+{
+    return s->Substring(start, end - start + 1);
 }
 
 String^ GameController::shuffleLetters(String^ lettersToShuffle) {

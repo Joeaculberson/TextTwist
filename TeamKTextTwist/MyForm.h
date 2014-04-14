@@ -47,7 +47,8 @@ namespace Project1 {
 	private: System::Windows::Forms::TextBox^  guessBox;
 
 	private: System::Windows::Forms::TextBox^  lettersBox;
-	private: System::Windows::Forms::TextBox^  guessedWords;
+	private: System::Windows::Forms::TextBox^  guessedWordsBox;
+
 
 
 	private: System::Windows::Forms::Label^  label1;
@@ -77,6 +78,8 @@ namespace Project1 {
 	private: System::Windows::Forms::Label^  timerLabel;
 	private: int static const MIN_LETTER_LENGTH = 3;
 	private: int userSetTimeLimit;
+	private: System::Windows::Forms::Button^  giveUpBtn;
+	private: String^ generatedLetters;
 
 	private: System::Void shuffleButton_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void nameBox_TextChanged(System::Object^  sender, System::EventArgs^  e);
@@ -99,9 +102,11 @@ namespace Project1 {
 	private: System::Void clearAllButton_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void newGameButton_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void lettersBox_Click(System::Object^  sender, System::EventArgs^  e);
-	private: System::Void guessedWords_Click(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void guessedWordsBox_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void timer_Tick(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void giveUpBtn_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::ComponentModel::IContainer^  components;
+	private: void MyForm::endGame();
 
 	private:
 		/// <summary>
@@ -121,7 +126,7 @@ namespace Project1 {
 			this->guessBox = (gcnew System::Windows::Forms::TextBox());
 			this->submitButton = (gcnew System::Windows::Forms::Button());
 			this->lettersBox = (gcnew System::Windows::Forms::TextBox());
-			this->guessedWords = (gcnew System::Windows::Forms::TextBox());
+			this->guessedWordsBox = (gcnew System::Windows::Forms::TextBox());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->shuffleButton = (gcnew System::Windows::Forms::Button());
 			this->namePrompt = (gcnew System::Windows::Forms::Label());
@@ -138,6 +143,7 @@ namespace Project1 {
 			this->newGameButton = (gcnew System::Windows::Forms::Button());
 			this->timer = (gcnew System::Windows::Forms::Timer(this->components));
 			this->timerLabel = (gcnew System::Windows::Forms::Label());
+			this->giveUpBtn = (gcnew System::Windows::Forms::Button());
 			this->menuBar->SuspendLayout();
 			this->SuspendLayout();
 			// 
@@ -185,17 +191,17 @@ namespace Project1 {
 			this->lettersBox->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
 			this->lettersBox->Click += gcnew System::EventHandler(this, &MyForm::lettersBox_Click);
 			// 
-			// guessedWords
+			// guessedWordsBox
 			// 
-			this->guessedWords->Cursor = System::Windows::Forms::Cursors::Default;
-			this->guessedWords->Location = System::Drawing::Point(464, 265);
-			this->guessedWords->Multiline = true;
-			this->guessedWords->Name = L"guessedWords";
-			this->guessedWords->ReadOnly = true;
-			this->guessedWords->ScrollBars = System::Windows::Forms::ScrollBars::Horizontal;
-			this->guessedWords->Size = System::Drawing::Size(400, 230);
-			this->guessedWords->TabIndex = 5;
-			this->guessedWords->Click += gcnew System::EventHandler(this, &MyForm::guessedWords_Click);
+			this->guessedWordsBox->Cursor = System::Windows::Forms::Cursors::Default;
+			this->guessedWordsBox->Location = System::Drawing::Point(464, 265);
+			this->guessedWordsBox->Multiline = true;
+			this->guessedWordsBox->Name = L"guessedWordsBox";
+			this->guessedWordsBox->ReadOnly = true;
+			this->guessedWordsBox->ScrollBars = System::Windows::Forms::ScrollBars::Horizontal;
+			this->guessedWordsBox->Size = System::Drawing::Size(400, 230);
+			this->guessedWordsBox->TabIndex = 5;
+			this->guessedWordsBox->Click += gcnew System::EventHandler(this, &MyForm::guessedWordsBox_Click);
 			// 
 			// label1
 			// 
@@ -317,7 +323,7 @@ namespace Project1 {
 			// 
 			this->clearAllButton->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
 				static_cast<System::Byte>(0)));
-			this->clearAllButton->Location = System::Drawing::Point(604, 546);
+			this->clearAllButton->Location = System::Drawing::Point(602, 546);
 			this->clearAllButton->Margin = System::Windows::Forms::Padding(4, 5, 4, 5);
 			this->clearAllButton->Name = L"clearAllButton";
 			this->clearAllButton->Size = System::Drawing::Size(147, 38);
@@ -353,11 +359,22 @@ namespace Project1 {
 			this->timerLabel->TabIndex = 15;
 			this->timerLabel->Text = L"0:00";
 			// 
+			// giveUpBtn
+			// 
+			this->giveUpBtn->Location = System::Drawing::Point(56, 546);
+			this->giveUpBtn->Name = L"giveUpBtn";
+			this->giveUpBtn->Size = System::Drawing::Size(148, 32);
+			this->giveUpBtn->TabIndex = 16;
+			this->giveUpBtn->Text = L"Give up";
+			this->giveUpBtn->UseVisualStyleBackColor = true;
+			this->giveUpBtn->Click += gcnew System::EventHandler(this, &MyForm::giveUpBtn_Click);
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(9, 20);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(922, 598);
+			this->Controls->Add(this->giveUpBtn);
 			this->Controls->Add(this->timerLabel);
 			this->Controls->Add(this->newGameButton);
 			this->Controls->Add(this->clearAllButton);
@@ -367,7 +384,7 @@ namespace Project1 {
 			this->Controls->Add(this->namePrompt);
 			this->Controls->Add(this->shuffleButton);
 			this->Controls->Add(this->label1);
-			this->Controls->Add(this->guessedWords);
+			this->Controls->Add(this->guessedWordsBox);
 			this->Controls->Add(this->submitButton);
 			this->Controls->Add(this->guessBox);
 			this->Controls->Add(this->lettersBox);
