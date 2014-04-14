@@ -80,14 +80,6 @@ void MyForm::startNewGame() {
 	this->timerLabel->Text = this->userSetTimeLimit + ":00";
 }
 
-void MyForm::performIfReuseIsOff(String^ value, String^ allowedLetters) {
-	if (!this->reuseLetters)
-	{
-			String^ newAllowedLetters = this->removeCharacters(value, allowedLetters);
-			this->lettersBox->Text = newAllowedLetters; 
-	}
-}
-
 void MyForm::handleWordEntry() {
 	String^ value = this->guessBox->Text;
 	Word^ newWord = gcnew Word(value);
@@ -96,7 +88,6 @@ void MyForm::handleWordEntry() {
 		int pointValue = newWord->getPointValue();
 		this->guessedWordsBox->AppendText(value + " (" + pointValue + ")" + "\n");
 		this->gc->incrementPlayerScore(pointValue);
-		//this->performIfReuseIsOff(value, allowedLetters);
 		this->scoreLabel->Text = this->gc->getPlayerScoreString();
 	} else {
 		if (this->gc->getPlayer()->getScore() > 0) {
@@ -148,20 +139,6 @@ void MyForm::beginNewGame() {
 		this->handleGenerateEvent();
 		this->timer->Start();
 	}
-}
-
-String^ MyForm::removeCharacters(String^ ofWord, String^ fromString) {
-	List<char>^ fromList = this->gc->stringToChars(fromString);
-	for (int i = 0; i < ofWord->Length; i++) {
-		fromList->Remove(ofWord[i]);
-	}
-
-	StringBuilder^ builder = gcnew StringBuilder();
-	for (int i = 0; i < fromList->Count; i++) {
-		builder->Append(Char::ToString(fromList[i]));
-	}
-
-	return builder->ToString();
 }
 
 void MyForm::showOptionsMenu() {

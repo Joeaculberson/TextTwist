@@ -85,9 +85,7 @@ namespace Project1 {
 	private: System::Void nameBox_TextChanged(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void startButton_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void submitButton_Click(System::Object^  sender, System::EventArgs^  e);
-	private: String^ removeCharacters(String^ ofWord, String^ fromString);
 	private: void startNewGame();
-	private: void performIfReuseIsOff(String^ value, String^ allowedLetters);
 	private: void handleWordEntry();
 	private: void submitWord();
 	private: void handleGenerateEvent();

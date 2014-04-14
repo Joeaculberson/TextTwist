@@ -57,17 +57,17 @@ List<String^>^ GameController::getAllPossibleWords(String^ letters) {
 }
 
 void GameController::permutation(String^ str) { 
-    permutation("", str); 
+    this->permutation("", str); 
 }
 
 void GameController::permutation(String^ prefix, String^ str) {
 	int n = str->Length;
-    if (n == 0) {
-		this->allPermutations->Add(prefix);
+    if (n == 1) {
+		this->allPermutations->Add(prefix + str);
 	}
     else {
         for (int i = 0; i < n; i++) {
-			permutation(prefix + Char::ToString(str[i]), mySubString(str, 0, i) + mySubString(str, i+1, n));
+			permutation(prefix + Char::ToString(str[i]), str->Substring(0, i) + str->Substring(i+1));
 		}
     }
 }
