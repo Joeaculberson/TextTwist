@@ -43,6 +43,11 @@ String^ GameController::getRandomLetters(int totalLetters) {
 	return builder->ToString();
 }
 
+/// get every permutation of the string, compare to dictionary, if it's a match, add to list.
+List<String^>^ GameController::getAllPossibleWords(List<char>^ letters) {
+	//code should be online...
+}
+
 String^ GameController::shuffleLetters(String^ lettersToShuffle) {
 	Random^ random = gcnew Random();
 	List<char>^ letters = this->stringToChars(lettersToShuffle);

@@ -11,6 +11,7 @@ ref class GameController
 {
 private:
 	List<String^>^ wordList;
+	List<String^>^ correctWords;
 	FileIO^ fileIO;
 	Player^ player;
 public:
@@ -26,5 +27,6 @@ public:
 	List<char>^ stringToChars(String^ toConvert);
 	bool isWordValid(Word^ word, String^ allowedLetters, bool reuseLetters);
 	String^ getPlayerScoreString();
+	List<String^>^ getAllPossibleWords(List<char>^ letters);
 };
 }
