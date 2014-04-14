@@ -86,7 +86,7 @@ void MyForm::handleWordEntry() {
 	String^ allowedLetters = this->lettersBox->Text;
 	if (this->gc->isWordValid(newWord, allowedLetters, this->reuseLetters)) {
 		int pointValue = newWord->getPointValue();
-		this->guessedWordsBox->AppendText(value + " (" + pointValue + ")" + "\n");
+		this->guessedWordsBox->AppendText(value + " (" + pointValue + ")" + Environment::NewLine);
 		this->gc->incrementPlayerScore(pointValue);
 		this->scoreLabel->Text = this->gc->getPlayerScoreString();
 	} else {
@@ -189,12 +189,6 @@ void MyForm::endGame() {
 		this->submitButton->Enabled = false;
 		this->clearAllButton->Enabled = false;
 		this->timeLimit = this->userSetTimeLimit;
-
-		List<String^>^ correctWords = this->gc->getAllPossibleWords(this->generatedLetters);
-		for each (String^ currCorrectWord in correctWords)
-		{
-			this->guessedWordsBox->AppendText(currCorrectWord + Environment::NewLine);
-		}
 
 		HighScore^ highScore = gcnew HighScore(this->gc->getPlayer(), this->userSetTimeLimit);
 		this->file->addHighScore(highScore);

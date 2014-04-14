@@ -28,9 +28,5 @@ public:
 	List<char>^ stringToChars(String^ toConvert);
 	bool isWordValid(Word^ word, String^ allowedLetters, bool reuseLetters);
 	String^ getPlayerScoreString();
-	List<String^>^ getAllPossibleWords(String^ letters);
-	void permutation(String^ str);
-	void permutation(String^ prefix, String^ str);
-	String^ mySubString(String^ s,int start,int end);
 };
 }

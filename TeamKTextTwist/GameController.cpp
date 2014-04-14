@@ -44,39 +44,6 @@ String^ GameController::getRandomLetters(int totalLetters) {
 	return builder->ToString();
 }
 
-/// get every permutation of the string, compare to dictionary, if it's a match, add to list.
-List<String^>^ GameController::getAllPossibleWords(String^ letters) {
-	this->permutation(letters);
-	for each (String^ currPermutation in this->allPermutations) {
-		Word^ currWord = gcnew Word(currPermutation);
-		if (currWord->isInDictionary(this->wordList)) {
-			this->correctWords->Add(currWord->getValue());
-		}
-	}
-	return this->correctWords;
-}
-
-void GameController::permutation(String^ str) { 
-    this->permutation("", str); 
-}
-
-void GameController::permutation(String^ prefix, String^ str) {
-	int n = str->Length;
-    if (n == 1) {
-		this->allPermutations->Add(prefix + str);
-	}
-    else {
-        for (int i = 0; i < n; i++) {
-			permutation(prefix + Char::ToString(str[i]), str->Substring(0, i) + str->Substring(i+1));
-		}
-    }
-}
-
-String^ GameController::mySubString(String^ s,int start,int end)
-{
-    return s->Substring(start, end - start + 1);
-}
-
 String^ GameController::shuffleLetters(String^ lettersToShuffle) {
 	Random^ random = gcnew Random();
 	List<char>^ letters = this->stringToChars(lettersToShuffle);
