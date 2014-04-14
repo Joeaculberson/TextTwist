@@ -8,13 +8,14 @@ public:
 	Word(void);
 	Word(String^ value);
 
-	bool isValid(List<String^>^ dictionary, List<char>^ allowedLetters);
+	bool isValid(List<String^>^ dictionary, List<char>^ allowedLetters, bool reuseLetters);
 	int getPointValue();
 private:
 	bool binarySearch(List<String^>^ wordList, int first, int last);
 	int getMidpoint(int first, int last);
 	bool isInDictionary(List<String^>^);
 	bool containsAllowedCharacters(List<char>^ allowedList);
+	bool containsAllowedCharactersReuse(List<char>^ allowedList);
 	String^ value;
 };
 }

@@ -61,6 +61,10 @@ String^ GameController::shuffleLetters(String^ lettersToShuffle) {
 	return builder->ToString();
 }
 
+Player^ GameController::getPlayer() {
+	return this->player;
+}
+
 List<char>^ GameController::stringToChars(String^ toConvert) {
 	List<char>^ letters = gcnew List<char>();
 	for (int i = 0; i < toConvert->Length; i++) {
@@ -73,9 +77,9 @@ void GameController::setPlayerName(String^ name) {
 	this->player->setName(name);
 }
 
-bool GameController::isWordValid(Word^ word, String^ allowedLetters) {
+bool GameController::isWordValid(Word^ word, String^ allowedLetters, bool reuseLetters) {
 	List<char>^ allowedList = this->stringToChars(allowedLetters);
-	return word->isValid(this->wordList, allowedList);
+	return word->isValid(this->wordList, allowedList, reuseLetters);
 }
 
 void GameController::incrementPlayerScore(int number) {

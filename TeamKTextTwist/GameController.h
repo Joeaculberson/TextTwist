@@ -22,8 +22,9 @@ public:
 	void incrementPlayerScore(int number);
 	void decrementPlayerScore();
 	void createNewPlayer();
+	Player^ getPlayer();
 	List<char>^ stringToChars(String^ toConvert);
-	bool isWordValid(Word^ word, String^ allowedLetters);
+	bool isWordValid(Word^ word, String^ allowedLetters, bool reuseLetters);
 	String^ getPlayerScoreString();
 };
 }

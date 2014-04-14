@@ -22,7 +22,16 @@ bool Word::containsAllowedCharacters(List<char>^ allowedList) {
 			allowedList[index] = '?';
 		}
 	}
+	return allowed;
+}
 
+bool Word::containsAllowedCharactersReuse(List<char>^ allowedList) {
+	bool allowed = true;
+	for (int i = 0; i < this->value->Length; i++) {
+		if (!allowedList->Contains(this->value[i])) {
+			allowed = false;
+		}
+	}
 	return allowed;
 }
 
@@ -50,8 +59,12 @@ int Word::getMidpoint(int first, int last) {
 	return (last + first) / 2;
 }
 
-bool Word::isValid(List<String^>^ dictionary, List<char>^ allowedLetters) {
-	return this->containsAllowedCharacters(allowedLetters) &&  this->isInDictionary(dictionary);
+bool Word::isValid(List<String^>^ dictionary, List<char>^ allowedLetters, bool reuseLetters) {
+	if (reuseLetters) {
+		return this->containsAllowedCharactersReuse(allowedLetters) &&  this->isInDictionary(dictionary);
+	} else {
+		return this->containsAllowedCharacters(allowedLetters) &&  this->isInDictionary(dictionary);
+	}
 }
 
 int Word::getPointValue() {

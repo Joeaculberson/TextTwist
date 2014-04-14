@@ -12,10 +12,6 @@ using namespace controller;
 
 namespace Project1 {
 
-System::Void MyForm::generateButton_Click(System::Object^  sender, System::EventArgs^  e) {
-	this->handleGenerateEvent();
-}
-
 System::Void MyForm::shuffleButton_Click(System::Object^  sender, System::EventArgs^  e) {
 	this->handleShuffle();
 }
@@ -76,11 +72,12 @@ void MyForm::startNewGame() {
 	this->nameBox->Text = "";
 	this->lettersBox->Text = "";
 	this->shuffleButton->Enabled = false;
-	this->generateButton->Enabled = false;
 	this->submitButton->Enabled = false;
 	this->gc->createNewPlayer();
 	this->scoreLabel->Text = this->gc->getPlayerScoreString();
 	this->guessedWords->Text = "";
+	this->timer->Stop();
+	this->timerLabel->Text = this->userSetTimeLimit + ":00";
 }
 
 void MyForm::performIfReuseIsOff(String^ value, String^ allowedLetters) {
@@ -95,24 +92,26 @@ void MyForm::handleWordEntry() {
 	String^ value = this->guessBox->Text;
 	Word^ newWord = gcnew Word(value);
 	String^ allowedLetters = this->lettersBox->Text;
-	if (this->gc->isWordValid(newWord, allowedLetters)) {
+	if (this->gc->isWordValid(newWord, allowedLetters, this->reuseLetters)) {
 		int pointValue = newWord->getPointValue();
 		this->guessedWords->AppendText(value + " (" + pointValue + ")" + "\n");
 		this->gc->incrementPlayerScore(pointValue);
-		this->performIfReuseIsOff(value, allowedLetters);
+		//this->performIfReuseIsOff(value, allowedLetters);
 		this->scoreLabel->Text = this->gc->getPlayerScoreString();
 	} else {
-		MessageBox::Show("Word not allowed. You have lost one point.");
-		this->gc->decrementPlayerScore();
-		this->scoreLabel->Text = this->gc->getPlayerScoreString();
+		if (this->gc->getPlayer()->getScore() > 0) {
+			MessageBox::Show("Word not allowed. You have lost one point.");
+			this->gc->decrementPlayerScore();
+			this->scoreLabel->Text = this->gc->getPlayerScoreString();
+		}
 	}
 }
 
 void MyForm::submitWord() {
-	if (this->guessBox->Text->Length >= 3) {
+	if (this->guessBox->Text->Length >= MIN_LETTER_LENGTH) {
 		this->handleWordEntry();
 	} else {
-		MessageBox::Show("Your guess must be at least three letters long");
+		MessageBox::Show("Your guess must be at least three letters long.");
 	}
 	this->guessBox->Text = "";
 }
@@ -140,9 +139,14 @@ void MyForm::toggleStartButtonEnabled() {
 
 void MyForm::beginNewGame() {
 	String^ playerName = this->nameBox->Text;
-	this->gc->setPlayerName(playerName);
-	this->generateButton->Enabled = true;
-	this->submitButton->Enabled = true;
+	if (playerName->Contains("/")) {
+		MessageBox::Show("Invalid name. Please try again.");
+	} else {
+		this->gc->setPlayerName(playerName);
+		this->submitButton->Enabled = true;
+		this->handleGenerateEvent();
+		this->timer->Start();
+	}
 }
 
 String^ MyForm::removeCharacters(String^ ofWord, String^ fromString) {
@@ -160,11 +164,51 @@ String^ MyForm::removeCharacters(String^ ofWord, String^ fromString) {
 }
 
 void MyForm::showOptionsMenu() {
-	OptionsDialog^ optionsDialog = gcnew OptionsDialog(this->timeLimit, this->reuseLetters);
+	OptionsDialog^ optionsDialog = gcnew OptionsDialog(this->userSetTimeLimit, this->reuseLetters);
 
 	if (optionsDialog->ShowDialog() == ::DialogResult::OK) {
-		this->reuseLetters = optionsDialog->getLetterReuse();
-		this->timeLimit = optionsDialog->getTimeLimit();
+		::DialogResult dialogResult = MessageBox::Show("For changes to apply, the game must reset. Reset game?", "Reset", MessageBoxButtons::YesNo);
+		if (dialogResult == ::DialogResult::Yes) {
+			this->reuseLetters = optionsDialog->getLetterReuse();
+			this->timeLimit = optionsDialog->getTimeLimit();
+			this->userSetTimeLimit = optionsDialog->getTimeLimit();
+			this->startNewGame();
+		}
 	}
 }
+
+System::Void MyForm::timer_Tick(System::Object^  sender, System::EventArgs^  e) {
+	if (this->timeLimit > 0 || this->secondsLeft > 0)
+    {
+		if(this->secondsLeft == 0) {
+			this->timeLimit = this->timeLimit - 1;
+			this->secondsLeft = 59;
+		} else {
+			this->secondsLeft = this->secondsLeft - 1;
+		}
+
+		if (this->secondsLeft < 10) {
+			timerLabel->Text = this->timeLimit + ":" + "0" + this->secondsLeft;
+		} else if (this->secondsLeft == 0) {
+			timerLabel->Text = this->timeLimit + ":00";
+		} else {
+			timerLabel->Text = this->timeLimit + ":" + this->secondsLeft;
+		}
+    }
+    else
+    {
+        this->timer->Stop();
+        timerLabel->Text = "0:00";
+		MessageBox::Show("Time up! Game over.");
+        this->nameBox->Text = "";
+		this->shuffleButton->Enabled = false;
+		this->submitButton->Enabled = false;
+		this->clearAllButton->Enabled = false;
+		this->timeLimit = this->userSetTimeLimit;
+
+		HighScore^ highScore = gcnew HighScore(this->gc->getPlayer(), this->userSetTimeLimit);
+		this->file->addHighScore(highScore);
+    }
+}
+
 }
