@@ -5,31 +5,18 @@ using namespace System::Text;
 
 #include "FileIO.h"
 
-namespace model {
+namespace fileio {
 
-/**
-* Creates a file io object with assigned values.
-*
-* @pre none
-*/
 FileIO::FileIO(void)
 {
 		
 }
 	
-/**
-* Parses the dictionary and returns the words.
-* 
-* @pre none
-*
-* @return The words in the dictionary.
-*/
 List<String^>^ FileIO::parseFile() 
 {
-	//vector<string> words = vector<string>();
 	List<String^>^ words = gcnew List<String^>();
 
-	String^ fileName = "dictionary.txt";
+	String^ fileName = L"dictionary.txt";
 
 	try {
 		StreamReader^ input = File::OpenText(fileName);
@@ -40,7 +27,7 @@ List<String^>^ FileIO::parseFile()
 		}
 		input->Close();
 	} catch (Exception^ exception) {
-		Console::WriteLine("Error: " + exception->Message);
+		Console::WriteLine(L"Error: " + exception->Message);
 	}
 
 	return words;
@@ -57,13 +44,17 @@ void FileIO::addHighScore(HighScore^ highScore) {
 		highScores->RemoveAt(MAX_HIGH_SCORES);
 	}
 
-	StreamWriter^ sw = gcnew StreamWriter(L"highscores.txt");
-	for (int i = 0; i < highScores->Count; i++)
-	{
-		sw->WriteLine(highScores[i]->getPlayer()->getName() + "/" + Convert::ToString(highScores[i]->getPlayer()->getScore())+ "/" + Convert::ToString(highScore->getTimeAllotted()));
+	try {
+		StreamWriter^ sw = gcnew StreamWriter(L"highscores.txt");
+		for (int i = 0; i < highScores->Count; i++)
+		{
+			sw->WriteLine(highScores[i]->getPlayer()->getName() + "/" + Convert::ToString(highScores[i]->getPlayer()->getScore())+ "/" + Convert::ToString(highScore->getTimeAllotted()));
+		}
+		sw->Flush();
+		sw->Close();
+	} catch (Exception^ exception) {
+		Console::WriteLine(L"Error: " + exception->Message);
 	}
-	sw->Flush();
-	sw->Close();
 }
 
 void FileIO::clearList() {
@@ -77,18 +68,20 @@ List<HighScore^>^ FileIO::loadHighScores() {
 	String^ line;
 
 	while((line = input->ReadLine()) != nullptr) {
-		array<String^>^ rawPerson = line->Split('/');
-		Player^ player = gcnew Player(rawPerson[0]);
-		player->setScore(Convert::ToInt32(rawPerson[1]));
-		HighScore^ highScore = gcnew HighScore(player, Convert::ToInt32(rawPerson[2]));
-
-		highScores->Add(highScore);
+		this->addHighScoreFromFile(line, highScores);
 	}
 	input->Close();
 
 	return highScores;
 }
 
+void FileIO::addHighScoreFromFile(String^ line, List<HighScore^>^ highScores) {
+	array<String^>^ rawPerson = line->Split('/');
+	Player^ player = gcnew Player(rawPerson[0]);
+	player->setScore(Convert::ToInt32(rawPerson[1]));
+	HighScore^ highScore = gcnew HighScore(player, Convert::ToInt32(rawPerson[2]));
 
+	highScores->Add(highScore);
+}
 
 }

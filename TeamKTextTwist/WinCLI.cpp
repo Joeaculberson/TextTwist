@@ -1,6 +1,6 @@
 #include "MyForm.h"
 
-using namespace Project1;
+using namespace controller;
 
 [STAThreadAttribute]
 int main(array<System::String ^> ^args)

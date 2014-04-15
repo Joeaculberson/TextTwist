@@ -6,29 +6,33 @@ using namespace System::Collections::Generic;
 using namespace System;
 using namespace model;
 
+#include "FileIO.h"
+using namespace fileio;
+
 namespace model {
 ref class GameController
 {
 private:
 	List<String^>^ wordList;
-	List<String^>^ allPermutations;
-	List<String^>^ correctWords;
 	FileIO^ fileIO;
 	Player^ player;
+
+	String^ chooseLetter(Random^ generator, array<char>^ letters);
 public:
 	GameController();
 
 	String^ getRandomLetters(int totalLetters);
 	String^ shuffleLetters(String^ lettersToShuffle);
+	Player^ getPlayer();
 	void setPlayerName(String^ name);
 	void incrementPlayerScore(int number);
 	void decrementPlayerScore();
 	void createNewPlayer();
-	Player^ getPlayer();
 	List<char>^ stringToChars(String^ toConvert);
 	bool isWordValid(Word^ word, String^ allowedLetters, bool reuseLetters);
-	String^ getPlayerScoreString();
-	String^ getPlayerCoinsString();
+	int getPlayerScore();
+	int getPlayerCoins();
+	String^ getPlayerName();
 	void incrementPlayerCoins(int coins);
 	void decrementPlayerCoins(int coins);
 };

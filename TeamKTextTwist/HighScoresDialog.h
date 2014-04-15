@@ -1,9 +1,11 @@
 #pragma once
 
 #include "Player.h"
-#include "FileIO.h"
 #include "HighScore.h"
 using namespace model;
+
+#include "FileIO.h"
+using namespace fileio;
 
 using namespace System::Collections::Generic;
 

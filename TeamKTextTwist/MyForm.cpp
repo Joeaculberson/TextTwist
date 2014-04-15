@@ -3,14 +3,12 @@
 using namespace System::Windows::Forms;
 using namespace System::Text;
 
-#include "FileIO.h"
-using namespace model;
 
 #include "OptionsDialog.h"
 #include "HighScoresDialog.h"
 using namespace controller;
 
-namespace Project1 {
+namespace controller {
 
 System::Void MyForm::shuffleButton_Click(System::Object^  sender, System::EventArgs^  e) {
 	this->handleShuffle();
@@ -43,8 +41,16 @@ System::Void MyForm::newGameToolStripMenuItem_Click(System::Object^  sender, Sys
 System::Void MyForm::generateButton_Click(System::Object^ sender, System::EventArgs^ e) {
 	this->handleGenerateEvent();
 	this->gc->decrementPlayerCoins(2);
-	this->coinsLabel->Text = this->gc->getPlayerCoinsString();
+	this->coinsLabel->Text = this->getCoinString();
 	this->toggleBuyButtonsEnabled();
+}
+
+String^ MyForm::getCoinString() {
+	return L"Coins: " + this->gc->getPlayerCoins();
+}
+
+String^ MyForm::getScoreString() {
+	return L"Score: " + this->gc->getPlayerScore();
 }
 
 System::Void MyForm::buy30SecondsButton_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -52,30 +58,28 @@ System::Void MyForm::buy30SecondsButton_Click(System::Object^ sender, System::Ev
 	if (this->secondsLeft > 59) {
 		int over = this->secondsLeft - 60;
 		this->secondsLeft = over;
-		this->timeLimit = this->timeLimit + 1;
+		this->minutesLeft = this->minutesLeft + 1;
 	}
 	this->gc->decrementPlayerCoins(2);
 	this->toggleBuyButtonsEnabled();
-	this->coinsLabel->Text = this->gc->getPlayerCoinsString();
+	this->coinsLabel->Text = this->getCoinString();
 }
 
 System::Void MyForm::highScoresToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
-	FileIO^ file = gcnew FileIO();
-	List<HighScore^>^ highScores = file->loadHighScores();
+	List<HighScore^>^ highScores = this->file->loadHighScores();
 	if (highScores->Count == 0) {
-		MessageBox::Show("There are no high scores to display.");
+		MessageBox::Show(L"There are no high scores to display.");
 	} else {
 		HighScoresDialog^ highScoreDialog = gcnew HighScoresDialog(highScores);
 		highScoreDialog->ShowDialog();
 	}
-	
 }
 
 System::Void MyForm::buy1MinuteButton_Click(System::Object^ sender, System::EventArgs^ e) {
-	this->timeLimit = this->timeLimit + 1;
+	this->minutesLeft = this->minutesLeft + 1;
 	this->gc->decrementPlayerCoins(3);
 	this->toggleBuyButtonsEnabled();
-	this->coinsLabel->Text = this->gc->getPlayerCoinsString();
+	this->coinsLabel->Text = this->getCoinString();
 }
 
 System::Void MyForm::clearAllButton_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -107,12 +111,12 @@ void MyForm::startNewGame() {
 	this->clearAllButton->Enabled = false;
 	this->enterName->Visible = true;
 	this->gc->createNewPlayer();
-	this->scoreLabel->Text = this->gc->getPlayerScoreString();
+	this->scoreLabel->Text = this->getScoreString();
 	this->guessedWordsBox->Text = "";
 	this->timer->Stop();
-	this->timeLimit = this->userSetTimeLimit;
+	this->minutesLeft = this->userSetTimeLimit;
 	this->secondsLeft = 0;
-	this->timerLabel->Text = this->timeLimit + ":00";
+	this->timerLabel->Text = this->minutesLeft + ":00";
 }
 
 void MyForm::handleWordEntry() {
@@ -120,35 +124,43 @@ void MyForm::handleWordEntry() {
 	Word^ newWord = gcnew Word(value);
 	String^ allowedLetters = this->lettersBox->Text;
 	if (this->gc->isWordValid(newWord, allowedLetters, this->reuseLetters)) {
-		if (!this->isGuessRepeating(value)) {
-			int pointValue = newWord->getPointValue();
-			int coinsAwarded = newWord->getCoinsAwarded();
-			this->guessedWordsBox->AppendText(" " + value + " (" + pointValue + ")" + Environment::NewLine);
-			this->gc->incrementPlayerScore(pointValue);
-			this->gc->incrementPlayerCoins(coinsAwarded);
-			this->coinsLabel->Text = this->gc->getPlayerCoinsString();
-			this->scoreLabel->Text = this->gc->getPlayerScoreString();
-		} else {
-			MessageBox::Show("Word has already been guessed");
-		}
+		this->processValidWord(value, newWord);
 	} else {
-		String^ losingMessage = "Your word is not in the dictionary.";
-		if (this->gc->getPlayer()->getScore() > 0) {
-			MessageBox::Show(losingMessage + " You have lost one point.");
-			this->gc->decrementPlayerScore();
-			this->scoreLabel->Text = this->gc->getPlayerScoreString();
-		} else {
-			MessageBox::Show(losingMessage);
-		}
+		this->processInvalidWord(value, newWord);
 	}
 	this->toggleBuyButtonsEnabled();
+}
+
+void MyForm::processInvalidWord(String^ value, Word^ newWord) {
+	String^ losingMessage = L"Your word is not in the dictionary.";
+	if (this->gc->getPlayerScore() > 0) {
+		MessageBox::Show(losingMessage + L" You have lost one point.");
+		this->gc->decrementPlayerScore();
+		this->scoreLabel->Text = this->getScoreString();
+	} else {
+		MessageBox::Show(losingMessage);
+	}
+}
+
+void MyForm::processValidWord(String^ value, Word^ newWord) {
+	if (!this->isGuessRepeating(value)) {
+		int pointValue = newWord->getPointValue();
+		int coinsAwarded = newWord->getCoinsAwarded();
+		this->guessedWordsBox->AppendText(" " + value + " (" + pointValue + ")" + Environment::NewLine);
+		this->gc->incrementPlayerScore(pointValue);
+		this->gc->incrementPlayerCoins(coinsAwarded);
+		this->coinsLabel->Text = this->getCoinString();
+		this->scoreLabel->Text = this->getScoreString();
+	} else {
+		MessageBox::Show(L"Word has already been guessed");
+	}
 }
 
 void MyForm::submitWord() {
 	if (this->guessBox->Text->Length >= MIN_LETTER_LENGTH) {
 		this->handleWordEntry();
 	} else {
-		MessageBox::Show("Your guess must be at least three letters long.");
+		MessageBox::Show(L"Your guess must be at least three letters long.");
 	}
 	this->guessBox->Text = "";
 }
@@ -176,7 +188,7 @@ void MyForm::toggleStartButtonEnabled() {
 }
 
 void MyForm::toggleBuyButtonsEnabled() {
-	int coins = this->gc->getPlayer()->getCoins();
+	int coins = this->gc->getPlayerCoins();
 	if (coins >= 2) {
 		this->buy30SecondsButton->Enabled = true;
 		this->generateButton->Enabled = true;
@@ -195,17 +207,20 @@ void MyForm::toggleBuyButtonsEnabled() {
 void MyForm::beginNewGame() {
 	String^ playerName = this->nameBox->Text;
 	if (playerName->Contains("/")) {
-		MessageBox::Show("Invalid name. Please try again.");
+		MessageBox::Show(L"Invalid name. Please try again.");
 	} else {
 		this->enterName->Visible = false;
 		this->guessBox->BringToFront();
+
 		this->startButton->SendToBack();
 		this->startButton->Enabled = false;
+
 		this->clearAllButton->Enabled = true;
 		this->gc->setPlayerName(playerName);
 		this->submitButton->Enabled = true;
 		this->handleGenerateEvent();
 		this->timer->Start();
+
 		this->buy30SecondsButton->Enabled = false;
 		this->buy1MinuteButton->Enabled = false;
 		this->generateButton->Enabled = false;
@@ -213,66 +228,73 @@ void MyForm::beginNewGame() {
 }
 
 bool MyForm::isGuessRepeating(String^ guess) {
-	if (this->guessedWordsBox->Text->Contains(" " + guess + " ")) {
-		return true;
-	} else {
-		return false;
+	return this->guessedWordsBox->Text->Contains(" " + guess + " ");
 	}
-}
 
 void MyForm::showOptionsMenu() {
 	OptionsDialog^ optionsDialog = gcnew OptionsDialog(this->userSetTimeLimit, this->reuseLetters);
 
 	if (optionsDialog->ShowDialog() == ::DialogResult::OK) {
-		::DialogResult dialogResult = MessageBox::Show("For changes to apply, the game must reset. Reset game?", "Reset", MessageBoxButtons::YesNo);
+		::DialogResult dialogResult = MessageBox::Show(L"For changes to apply, the game must reset. Reset game?", "Reset", MessageBoxButtons::YesNo);
 		if (dialogResult == ::DialogResult::Yes) {
-			this->reuseLetters = optionsDialog->getLetterReuse();
-			this->timeLimit = optionsDialog->getTimeLimit();
-			this->userSetTimeLimit = optionsDialog->getTimeLimit();
+			this->changeDefaultTime(optionsDialog);
 			this->startNewGame();
 		}
 	}
 }
 
-System::Void MyForm::timer_Tick(System::Object^  sender, System::EventArgs^  e) {
-	if (this->timeLimit > 0 || this->secondsLeft > 0)
-    {
-		if(this->secondsLeft == 0) {
-			this->timeLimit = this->timeLimit - 1;
-			this->secondsLeft = 59;
-		} else {
-			this->secondsLeft = this->secondsLeft - 1;
-		}
+void MyForm::changeDefaultTime(OptionsDialog^ optionsDialog) {
+	this->reuseLetters = optionsDialog->getLetterReuse();
+	this->minutesLeft = optionsDialog->getTimeLimit();
+	this->userSetTimeLimit = optionsDialog->getTimeLimit();
+}
 
-		if (this->secondsLeft < 10) {
-			timerLabel->Text = this->timeLimit + ":" + "0" + this->secondsLeft;
-		} else if (this->secondsLeft == 0) {
-			timerLabel->Text = this->timeLimit + ":00";
-		} else {
-			timerLabel->Text = this->timeLimit + ":" + this->secondsLeft;
-		}
+System::Void MyForm::timer_Tick(System::Object^  sender, System::EventArgs^  e) {
+	if (this->minutesLeft > 0 || this->secondsLeft > 0)
+    {
+		this->formatClock(this->minutesLeft, this->secondsLeft);
     }
     else
     {
         this->endGame();
-		MessageBox::Show("Time up! Game over.");
+		MessageBox::Show(L"Time up! Game over.");
     }
+}
+
+void MyForm::formatClock(int minutesLeft, int secondsLeft) {
+	if(this->secondsLeft == 0) {
+		this->minutesLeft = this->minutesLeft - 1;
+		this->secondsLeft = 59;
+	} else {
+		this->secondsLeft = this->secondsLeft - 1;
+	}
+
+	if (this->secondsLeft < 10) {
+		timerLabel->Text = this->minutesLeft + ":" + "0" + this->secondsLeft;
+	} else if (this->secondsLeft == 0) {
+		timerLabel->Text = this->minutesLeft + ":00";
+	} else {
+		timerLabel->Text = this->minutesLeft + ":" + this->secondsLeft;
+	}
 }
 
 void MyForm::endGame() {
 	this->timer->Stop();
+
     this->timerLabel->Text = "0:00";
 	this->lettersBox->Text = "";
     this->nameBox->Text = "";
 	this->guessBox->Text = "";
+
 	this->shuffleButton->Enabled = false;
 	this->submitButton->SendToBack();
 	this->submitButton->Enabled = false;
 	this->startButton->BringToFront();
 	this->startButton->Enabled = true;
+
 	this->guessBox->BringToFront();
 	this->clearAllButton->Enabled = false;
-	this->timeLimit = this->userSetTimeLimit;
+	this->minutesLeft = this->userSetTimeLimit;
 	this->secondsLeft = 0;
 	this->enterName->Visible = true;
 

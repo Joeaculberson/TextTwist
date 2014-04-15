@@ -4,14 +4,16 @@
 
 using namespace System::Text;
 
+
+
 namespace model {
+
 GameController::GameController()
 {
 	this->fileIO = gcnew FileIO();
 	this->wordList = this->fileIO->parseFile();
 	int length = this->wordList->Count;
 	this->player = gcnew Player();
-	this->allPermutations = gcnew List<String^>();
 }
 
 /**
@@ -33,15 +35,21 @@ String^ GameController::getRandomLetters(int totalLetters) {
 		'm', 'p', 'p', 'v', 'v', 'j', 'k', 'q', 'x', 'z' };
 	StringBuilder^ builder = gcnew StringBuilder();
 	for (int i = 0; i < totalLetters; i++) {
-		char randomLetter;
-		do {
-			int randomIndex = generator->Next(0, letters->Length);
-			randomLetter = letters[randomIndex];
-			letters[randomIndex] = '?';
-		} while (randomLetter == '?');
-		builder->Append(Char::ToString(randomLetter));
+		builder->Append(chooseLetter(generator, letters));
 	}
 	return builder->ToString();
+}
+
+String^ GameController::chooseLetter(Random^ generator, array<char>^ letters) {
+	char randomLetter;
+
+	do {
+		int randomIndex = generator->Next(0, letters->Length);
+		randomLetter = letters[randomIndex];
+		letters[randomIndex] = '?';
+	} while (randomLetter == '?');
+
+	return Char::ToString(randomLetter);
 }
 
 String^ GameController::shuffleLetters(String^ lettersToShuffle) {
@@ -62,16 +70,16 @@ String^ GameController::shuffleLetters(String^ lettersToShuffle) {
 	return builder->ToString();
 }
 
-Player^ GameController::getPlayer() {
-	return this->player;
-}
-
 List<char>^ GameController::stringToChars(String^ toConvert) {
 	List<char>^ letters = gcnew List<char>();
 	for (int i = 0; i < toConvert->Length; i++) {
 		letters->Add(toConvert[i]);
 	}
 	return letters;
+}
+
+String^ GameController::getPlayerName() {
+	return this->player->getName();
 }
 
 void GameController::setPlayerName(String^ name) {
@@ -103,12 +111,16 @@ void GameController::decrementPlayerCoins(int coins) {
 	this->player->setCoins(this->player->getCoins() - coins);
 }
 
-String^ GameController::getPlayerScoreString() {
-	return this->player->getScoreString();
+int GameController::getPlayerScore() {
+	return this->player->getScore();
 }
 
-String^ GameController::getPlayerCoinsString() {
-	return this->player->getCoinsString();
+int GameController::getPlayerCoins() {
+	return this->player->getCoins();
+}
+
+Player^ GameController::getPlayer() {
+	return this->player;
 }
 
 }

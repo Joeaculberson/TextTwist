@@ -20,6 +20,7 @@ private:
 	bool containsAllowedCharactersReuse(List<char>^ allowedList);
 	int getNumberOfOneCoinCharacters();
 	int getNumberOfTwoCoinCharacters();
+	void processCharacter(int characterIndex, bool& allowed, List<char>^ allowedList);
 	String^ value;
 };
 }

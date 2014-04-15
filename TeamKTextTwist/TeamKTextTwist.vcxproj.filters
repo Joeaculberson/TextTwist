@@ -18,16 +18,16 @@
     <Filter Include="Source Files\controller">
       <UniqueIdentifier>{7a198f50-22dd-4403-92d1-04fd5adcb3dd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\model\fileio">
-      <UniqueIdentifier>{b01d8b6e-d12f-460e-bffa-931014d4866e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\controller\dialogs">
       <UniqueIdentifier>{239e2371-6e70-4081-80d9-d4d58c7a345f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\fileio">
+      <UniqueIdentifier>{b01d8b6e-d12f-460e-bffa-931014d4866e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FileIO.cpp">
-      <Filter>Source Files\model\fileio</Filter>
+      <Filter>Source Files\fileio</Filter>
     </ClCompile>
     <ClCompile Include="WinCLI.cpp">
       <Filter>Source Files\controller</Filter>

@@ -4,8 +4,9 @@ using namespace System::Collections::Generic;
 
 #include "Player.h"
 #include "HighScore.h"
+using namespace model;
 
-namespace model {
+namespace fileio {
 	ref class FileIO
 	{
 	public:
@@ -18,6 +19,7 @@ namespace model {
 		static int compare(HighScore^ score, HighScore^ otherScore) {
 			return otherScore->getPlayer()->getScore() - score->getPlayer()->getScore();
 		}
+		void addHighScoreFromFile(String^ line, List<HighScore^>^ highScores);
 
 		static int MAX_HIGH_SCORES = 10;
 	};

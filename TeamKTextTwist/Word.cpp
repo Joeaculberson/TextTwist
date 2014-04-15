@@ -19,14 +19,18 @@ String^ Word::getValue() {
 bool Word::containsAllowedCharacters(List<char>^ allowedList) {
 	bool allowed = true;
 	for (int i = 0; i < this->value->Length; i++) {
-		if (!allowedList->Contains(this->value[i])) {
-			allowed = false;
-		} else {
-			int index = allowedList->IndexOf(this->value[i]);
-			allowedList[index] = '?';
-		}
+		this->processCharacter(i, allowed, allowedList);
 	}
 	return allowed;
+}
+
+void Word::processCharacter(int characterIndex, bool& allowed, List<char>^ allowedList) {
+	if (!allowedList->Contains(this->value[characterIndex])) {
+		allowed = false;
+	} else {
+		int index = allowedList->IndexOf(this->value[characterIndex]);
+		allowedList[index] = '?';
+	}
 }
 
 bool Word::containsAllowedCharactersReuse(List<char>^ allowedList) {

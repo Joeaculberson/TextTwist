@@ -20,8 +20,6 @@ public:
 	void setCoins(int coins);
 	String^ getName();
 	void setName(String^ name);
-	String^ getScoreString();
-	String^ getCoinsString();
 
 	bool operator<(const Player^ player);
 	bool operator<=(const Player^ player);

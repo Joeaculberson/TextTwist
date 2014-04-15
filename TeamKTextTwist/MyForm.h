@@ -3,7 +3,14 @@
 #include "GameController.h"
 using namespace model;
 
-namespace Project1 {
+#include "FileIO.h"
+using namespace fileio;
+
+#include "OptionsDialog.h"
+
+using namespace System::Windows::Forms;
+
+namespace controller {
 
 	using namespace System;
 	using namespace System::ComponentModel;
@@ -21,12 +28,13 @@ namespace Project1 {
 		MyForm(void)
 		{
 			InitializeComponent();
-			this->timeLimit = DEFAULT_TIME_LIMIT;
+			this->minutesLeft = DEFAULT_TIME_LIMIT;
 			this->userSetTimeLimit = DEFAULT_TIME_LIMIT;
 			this->secondsLeft = 0;
-			this->timerLabel->Text = this->timeLimit + ":00";
+			this->timerLabel->Text = this->minutesLeft + ":00";
 			this->reuseLetters = false;
 			this->newGameButton->Focus();
+			this->file = gcnew FileIO();
 			this->gc = gcnew GameController();
 		}
 
@@ -67,9 +75,8 @@ namespace Project1 {
 	private: System::Windows::Forms::ToolStripMenuItem^  exitToolStripMenuItem;
 
 	private: GameController^ gc;
-	private: FileIO^ file;
 	private: int secondsLeft;
-	private: int timeLimit;
+	private: int minutesLeft;
 	private: bool reuseLetters;
 	private: System::Windows::Forms::Button^  clearAllButton;
 	private: System::Windows::Forms::Button^  newGameButton;
@@ -78,13 +85,14 @@ namespace Project1 {
 	private: System::Windows::Forms::Label^  timerLabel;
 	private: int static const MIN_LETTER_LENGTH = 3;
 	private: void toggleBuyButtonsEnabled();
-	private: System::Windows::Forms::Button^  buy30SecondsButton;
 
+
+	private: System::Windows::Forms::Button^  buy30SecondsButton;
 	private: System::Windows::Forms::Button^  generateButton;
 	private: System::Windows::Forms::Button^  buy1MinuteButton;
-
 	private: System::Windows::Forms::Label^  coinsLabel;
 	private: int userSetTimeLimit;
+	private: FileIO^ file;
 	private: bool isGuessRepeating(String^ guess);
 
 	private: System::Windows::Forms::Label^  label2;
@@ -98,14 +106,20 @@ namespace Project1 {
 	private: System::Void generateButton_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void buy30SecondsButton_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void buy1MinuteButton_Click(System::Object^  sender, System::EventArgs^  e);
+	private: void processValidWord(String^ value, Word^ newWord);
+	private: void processInvalidWord(String^ value, Word^ newWord);
 	private: void startNewGame();
 	private: void handleWordEntry();
 	private: void submitWord();
 	private: void handleGenerateEvent();
 	private: void handleShuffle();
 	private: void toggleStartButtonEnabled();
+	private: void MyForm::formatClock(int minutes, int seconds);
 	private: void beginNewGame();
 	private: void showOptionsMenu();
+	private: String^ getCoinString();
+	private: String^ getScoreString();
+	private: void changeDefaultTime(OptionsDialog^ optionsDialog);
 	private: System::Void optionsToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void exitToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void newGameToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
