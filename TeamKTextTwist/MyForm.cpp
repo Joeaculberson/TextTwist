@@ -94,10 +94,14 @@ void MyForm::handleWordEntry() {
 	Word^ newWord = gcnew Word(value);
 	String^ allowedLetters = this->lettersBox->Text;
 	if (this->gc->isWordValid(newWord, allowedLetters, this->reuseLetters)) {
-		int pointValue = newWord->getPointValue();
-		this->guessedWordsBox->AppendText(value + " (" + pointValue + ")" + Environment::NewLine);
-		this->gc->incrementPlayerScore(pointValue);
-		this->scoreLabel->Text = this->gc->getPlayerScoreString();
+		if (!this->isGuessRepeating(value)) {
+			int pointValue = newWord->getPointValue();
+			this->guessedWordsBox->AppendText(" " + value + " (" + pointValue + ")" + Environment::NewLine);
+			this->gc->incrementPlayerScore(pointValue);
+			this->scoreLabel->Text = this->gc->getPlayerScoreString();
+		} else {
+			MessageBox::Show("Word has already been guessed");
+		}
 	} else {
 		String^ losingMessage = "Your word is not in the dictionary.";
 		if (this->gc->getPlayer()->getScore() > 0) {
@@ -155,6 +159,14 @@ void MyForm::beginNewGame() {
 		this->submitButton->Enabled = true;
 		this->handleGenerateEvent();
 		this->timer->Start();
+	}
+}
+
+bool MyForm::isGuessRepeating(String^ guess) {
+	if (this->guessedWordsBox->Text->Contains(" " + guess + " ")) {
+		return true;
+	} else {
+		return false;
 	}
 }
 
