@@ -47,6 +47,18 @@ System::Void MyForm::generateButton_Click(System::Object^ sender, System::EventA
 	this->toggleBuyButtonsEnabled();
 }
 
+System::Void MyForm::buy30SecondsButton_Click(System::Object^ sender, System::EventArgs^ e) {
+	this->secondsLeft = this->secondsLeft + 30;
+	if (this->secondsLeft > 59) {
+		int over = this->secondsLeft - 60;
+		this->secondsLeft = over;
+		this->timeLimit = this->timeLimit + 1;
+	}
+	this->gc->decrementPlayerCoins(2);
+	this->toggleBuyButtonsEnabled();
+	this->coinsLabel->Text = this->gc->getPlayerCoinsString();
+}
+
 System::Void MyForm::highScoresToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 	FileIO^ file = gcnew FileIO();
 	List<HighScore^>^ highScores = file->loadHighScores();
@@ -57,6 +69,13 @@ System::Void MyForm::highScoresToolStripMenuItem_Click(System::Object^  sender, 
 		highScoreDialog->ShowDialog();
 	}
 	
+}
+
+System::Void MyForm::buy1MinuteButton_Click(System::Object^ sender, System::EventArgs^ e) {
+	this->timeLimit = this->timeLimit + 1;
+	this->gc->decrementPlayerCoins(3);
+	this->toggleBuyButtonsEnabled();
+	this->coinsLabel->Text = this->gc->getPlayerCoinsString();
 }
 
 System::Void MyForm::clearAllButton_Click(System::Object^ sender, System::EventArgs^ e) {

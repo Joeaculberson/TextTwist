@@ -96,6 +96,8 @@ namespace Project1 {
 	private: System::Void startButton_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void submitButton_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void generateButton_Click(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void buy30SecondsButton_Click(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void buy1MinuteButton_Click(System::Object^  sender, System::EventArgs^  e);
 	private: void startNewGame();
 	private: void handleWordEntry();
 	private: void submitWord();
@@ -405,6 +407,7 @@ namespace Project1 {
 			this->buy30SecondsButton->TabIndex = 19;
 			this->buy30SecondsButton->Text = L"Buy 30 Seconds! (2 coins)";
 			this->buy30SecondsButton->UseVisualStyleBackColor = true;
+			this->buy30SecondsButton->Click += gcnew System::EventHandler(this, &MyForm::buy30SecondsButton_Click);
 			// 
 			// generateButton
 			// 
@@ -430,6 +433,7 @@ namespace Project1 {
 			this->buy1MinuteButton->TabIndex = 21;
 			this->buy1MinuteButton->Text = L"Buy One Minute! (3 coins)";
 			this->buy1MinuteButton->UseVisualStyleBackColor = true;
+			this->buy1MinuteButton->Click += gcnew System::EventHandler(this, &MyForm::buy1MinuteButton_Click);
 			// 
 			// coinsLabel
 			// 
