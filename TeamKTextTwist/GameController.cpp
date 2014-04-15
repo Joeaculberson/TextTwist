@@ -95,8 +95,20 @@ void GameController::createNewPlayer() {
 	this->player = gcnew Player();
 }
 
+void GameController::incrementPlayerCoins(int coins) {
+	this->player->setCoins(this->player->getCoins() + coins);
+}
+
+void GameController::decrementPlayerCoins(int coins) {
+	this->player->setCoins(this->player->getCoins() - coins);
+}
+
 String^ GameController::getPlayerScoreString() {
 	return this->player->getScoreString();
+}
+
+String^ GameController::getPlayerCoinsString() {
+	return this->player->getCoinsString();
 }
 
 }

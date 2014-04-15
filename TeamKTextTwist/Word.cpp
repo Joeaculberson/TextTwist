@@ -87,4 +87,39 @@ int Word::getPointValue() {
 		return -1;
 	}
 }
+
+int Word::getCoinsAwarded() {
+	int coinsAwarded = this->getNumberOfOneCoinCharacters();
+	coinsAwarded = coinsAwarded + (this->getNumberOfTwoCoinCharacters() * 2);
+
+	if (this->value->Length >= 8) {
+		coinsAwarded = coinsAwarded + 3;
+	} else if (this->value->Length >= 5) {
+		coinsAwarded = coinsAwarded + 2;
+	}
+
+	return coinsAwarded;
+}
+
+int Word::getNumberOfTwoCoinCharacters() {
+	int numberOfTwoCoinCharacters = 0;
+	for (int i = 0; i < this->value->Length; i++) {
+		if (this->value[i] == 'q' || this->value[i] == 'z') {
+			numberOfTwoCoinCharacters++;
+		}
+	}
+
+	return numberOfTwoCoinCharacters;
+}
+
+int Word::getNumberOfOneCoinCharacters() {
+	int numberOfOneCoinCharacters = 0;
+	for (int i = 0; i < this->value->Length; i++) {
+		if (this->value[i] == 'x' || this->value[i] == 'v') {
+			numberOfOneCoinCharacters++;
+		}
+	}
+
+	return numberOfOneCoinCharacters;
+}
 }

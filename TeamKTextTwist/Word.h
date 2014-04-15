@@ -10,6 +10,7 @@ public:
 
 	bool isValid(List<String^>^ dictionary, List<char>^ allowedLetters, bool reuseLetters);
 	int getPointValue();
+	int getCoinsAwarded();
 	bool isInDictionary(List<String^>^);
 	String^ Word::getValue();
 private:
@@ -17,6 +18,8 @@ private:
 	int getMidpoint(int first, int last);
 	bool containsAllowedCharacters(List<char>^ allowedList);
 	bool containsAllowedCharactersReuse(List<char>^ allowedList);
+	int getNumberOfOneCoinCharacters();
+	int getNumberOfTwoCoinCharacters();
 	String^ value;
 };
 }

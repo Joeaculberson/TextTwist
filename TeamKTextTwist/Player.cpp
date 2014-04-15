@@ -23,6 +23,17 @@ void Player::setScore(int score) {
 	this->score = score;
 }
 
+int Player::getCoins() {
+	return this->coins;
+}
+
+void Player::setCoins(int coins) {
+	if (coins < 0) {
+		throw gcnew ArgumentException("Coins cannot be negative");
+	}
+	this->coins = coins;
+}
+
 String^ Player::getName() {
 	return this->name;
 }
@@ -49,6 +60,10 @@ bool Player::operator>=(const Player^ player) {
 
 String^ Player::getScoreString() {
 	return "Score: " + this->score;
+}
+
+String^ Player::getCoinsString() {
+	return "Coins: " + this->coins;
 }
 
 }

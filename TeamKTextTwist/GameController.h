@@ -28,5 +28,8 @@ public:
 	List<char>^ stringToChars(String^ toConvert);
 	bool isWordValid(Word^ word, String^ allowedLetters, bool reuseLetters);
 	String^ getPlayerScoreString();
+	String^ getPlayerCoinsString();
+	void incrementPlayerCoins(int coins);
+	void decrementPlayerCoins(int coins);
 };
 }

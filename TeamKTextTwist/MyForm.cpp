@@ -96,8 +96,11 @@ void MyForm::handleWordEntry() {
 	if (this->gc->isWordValid(newWord, allowedLetters, this->reuseLetters)) {
 		if (!this->isGuessRepeating(value)) {
 			int pointValue = newWord->getPointValue();
+			int coinsAwarded = newWord->getCoinsAwarded();
 			this->guessedWordsBox->AppendText(" " + value + " (" + pointValue + ")" + Environment::NewLine);
 			this->gc->incrementPlayerScore(pointValue);
+			this->gc->incrementPlayerCoins(coinsAwarded);
+			this->coinsLabel->Text = this->gc->getPlayerCoinsString();
 			this->scoreLabel->Text = this->gc->getPlayerScoreString();
 		} else {
 			MessageBox::Show("Word has already been guessed");
@@ -112,6 +115,7 @@ void MyForm::handleWordEntry() {
 			MessageBox::Show(losingMessage);
 		}
 	}
+	this->toggleBuyButtonsEnabled();
 }
 
 void MyForm::submitWord() {
@@ -145,6 +149,23 @@ void MyForm::toggleStartButtonEnabled() {
 	}
 }
 
+void MyForm::toggleBuyButtonsEnabled() {
+	int coins = this->gc->getPlayer()->getCoins();
+	if (coins >= 2) {
+		this->buy30SecondsButton->Enabled = true;
+		this->generateButton->Enabled = true;
+	} else {
+		this->buy30SecondsButton->Enabled = false;
+		this->generateButton->Enabled = false;
+	}
+
+	if (coins >= 3) {
+		this->buy1MinuteButton->Enabled = true;
+	} else {
+		this->buy1MinuteButton->Enabled = false;
+	}
+}
+
 void MyForm::beginNewGame() {
 	String^ playerName = this->nameBox->Text;
 	if (playerName->Contains("/")) {
@@ -159,6 +180,9 @@ void MyForm::beginNewGame() {
 		this->submitButton->Enabled = true;
 		this->handleGenerateEvent();
 		this->timer->Start();
+		this->buy30SecondsButton->Enabled = false;
+		this->buy1MinuteButton->Enabled = false;
+		this->generateButton->Enabled = false;
 	}
 }
 
