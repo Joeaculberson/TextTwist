@@ -40,6 +40,13 @@ System::Void MyForm::newGameToolStripMenuItem_Click(System::Object^  sender, Sys
 	this->startNewGame();
 }
 
+System::Void MyForm::generateButton_Click(System::Object^ sender, System::EventArgs^ e) {
+	this->handleGenerateEvent();
+	this->gc->decrementPlayerCoins(2);
+	this->coinsLabel->Text = this->gc->getPlayerCoinsString();
+	this->toggleBuyButtonsEnabled();
+}
+
 System::Void MyForm::highScoresToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 	FileIO^ file = gcnew FileIO();
 	List<HighScore^>^ highScores = file->loadHighScores();

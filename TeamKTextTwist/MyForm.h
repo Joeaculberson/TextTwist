@@ -95,6 +95,7 @@ namespace Project1 {
 	private: System::Void nameBox_TextChanged(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void startButton_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void submitButton_Click(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void generateButton_Click(System::Object^  sender, System::EventArgs^  e);
 	private: void startNewGame();
 	private: void handleWordEntry();
 	private: void submitWord();
@@ -416,6 +417,7 @@ namespace Project1 {
 			this->generateButton->TabIndex = 20;
 			this->generateButton->Text = L"Generate New Letters! (2 coins)";
 			this->generateButton->UseVisualStyleBackColor = true;
+			this->generateButton->Click += gcnew System::EventHandler(this, &MyForm::generateButton_Click);
 			// 
 			// buy1MinuteButton
 			// 
@@ -477,5 +479,6 @@ namespace Project1 {
 
 		}
 #pragma endregion
+
 };
 }
