@@ -60,7 +60,7 @@ void FileIO::addHighScore(HighScore^ highScore) {
 	StreamWriter^ sw = gcnew StreamWriter(L"highscores.txt");
 	for (int i = 0; i < highScores->Count; i++)
 	{
-		sw->WriteLine(highScores[i]->getPlayer()->getName() + "/" + Convert::ToString(highScores[i]->getPlayer()->getScore()));
+		sw->WriteLine(highScores[i]->getPlayer()->getName() + "/" + Convert::ToString(highScores[i]->getPlayer()->getScore())+ "/" + Convert::ToString(highScore->getTimeAllotted()));
 	}
 	sw->Flush();
 	sw->Close();

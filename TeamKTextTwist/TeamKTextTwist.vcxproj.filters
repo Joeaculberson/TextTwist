@@ -18,16 +18,16 @@
     <Filter Include="Source Files\controller">
       <UniqueIdentifier>{7a198f50-22dd-4403-92d1-04fd5adcb3dd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\fileio">
+    <Filter Include="Source Files\model\fileio">
       <UniqueIdentifier>{b01d8b6e-d12f-460e-bffa-931014d4866e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\controller\dialogs">
+      <UniqueIdentifier>{239e2371-6e70-4081-80d9-d4d58c7a345f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="MyForm.cpp">
-      <Filter>Header Files</Filter>
-    </ClCompile>
     <ClCompile Include="FileIO.cpp">
-      <Filter>Source Files\fileio</Filter>
+      <Filter>Source Files\model\fileio</Filter>
     </ClCompile>
     <ClCompile Include="WinCLI.cpp">
       <Filter>Source Files\controller</Filter>
@@ -38,17 +38,20 @@
     <ClCompile Include="GameController.cpp">
       <Filter>Source Files\model</Filter>
     </ClCompile>
-    <ClCompile Include="OptionsDialog.cpp">
-      <Filter>Header Files</Filter>
-    </ClCompile>
     <ClCompile Include="Word.cpp">
       <Filter>Source Files\model</Filter>
     </ClCompile>
-    <ClCompile Include="HighScoresDialog.cpp">
-      <Filter>Header Files</Filter>
-    </ClCompile>
     <ClCompile Include="HighScore.cpp">
       <Filter>Source Files\model</Filter>
+    </ClCompile>
+    <ClCompile Include="HighScoresDialog.cpp">
+      <Filter>Source Files\controller\dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="OptionsDialog.cpp">
+      <Filter>Source Files\controller\dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="MyForm.cpp">
+      <Filter>Source Files\controller</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

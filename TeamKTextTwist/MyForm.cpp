@@ -71,13 +71,22 @@ System::Void MyForm::guessedWordsBox_Click(System::Object^ sender, System::Event
 void MyForm::startNewGame() {
 	this->nameBox->Text = "";
 	this->lettersBox->Text = "";
+	this->guessBox->Text = "";
 	this->shuffleButton->Enabled = false;
+	this->nameBox->BringToFront();
 	this->submitButton->Enabled = false;
+	this->submitButton->SendToBack();
+	this->newGameButton->Enabled = true;
+	this->newGameButton->BringToFront();
+	this->clearAllButton->Enabled = false;
+	this->enterName->Visible = true;
 	this->gc->createNewPlayer();
 	this->scoreLabel->Text = this->gc->getPlayerScoreString();
 	this->guessedWordsBox->Text = "";
 	this->timer->Stop();
-	this->timerLabel->Text = this->userSetTimeLimit + ":00";
+	this->timeLimit = this->userSetTimeLimit;
+	this->secondsLeft = 0;
+	this->timerLabel->Text = this->timeLimit + ":00";
 }
 
 void MyForm::handleWordEntry() {
@@ -90,10 +99,13 @@ void MyForm::handleWordEntry() {
 		this->gc->incrementPlayerScore(pointValue);
 		this->scoreLabel->Text = this->gc->getPlayerScoreString();
 	} else {
+		String^ losingMessage = "Your word is not in the dictionary.";
 		if (this->gc->getPlayer()->getScore() > 0) {
-			MessageBox::Show("Word not allowed. You have lost one point.");
+			MessageBox::Show(losingMessage + " You have lost one point.");
 			this->gc->decrementPlayerScore();
 			this->scoreLabel->Text = this->gc->getPlayerScoreString();
+		} else {
+			MessageBox::Show(losingMessage);
 		}
 	}
 }
@@ -134,6 +146,11 @@ void MyForm::beginNewGame() {
 	if (playerName->Contains("/")) {
 		MessageBox::Show("Invalid name. Please try again.");
 	} else {
+		this->enterName->Visible = false;
+		this->guessBox->BringToFront();
+		this->startButton->SendToBack();
+		this->startButton->Enabled = false;
+		this->clearAllButton->Enabled = true;
 		this->gc->setPlayerName(playerName);
 		this->submitButton->Enabled = true;
 		this->handleGenerateEvent();
@@ -182,21 +199,23 @@ System::Void MyForm::timer_Tick(System::Object^  sender, System::EventArgs^  e) 
 
 void MyForm::endGame() {
 	this->timer->Stop();
-        timerLabel->Text = "0:00";
-		
-        this->nameBox->Text = "";
-		this->shuffleButton->Enabled = false;
-		this->submitButton->Enabled = false;
-		this->clearAllButton->Enabled = false;
-		this->timeLimit = this->userSetTimeLimit;
+    this->timerLabel->Text = "0:00";
+	this->lettersBox->Text = "";
+    this->nameBox->Text = "";
+	this->guessBox->Text = "";
+	this->shuffleButton->Enabled = false;
+	this->submitButton->SendToBack();
+	this->submitButton->Enabled = false;
+	this->startButton->BringToFront();
+	this->startButton->Enabled = true;
+	this->guessBox->BringToFront();
+	this->clearAllButton->Enabled = false;
+	this->timeLimit = this->userSetTimeLimit;
+	this->secondsLeft = 0;
+	this->enterName->Visible = true;
 
-		HighScore^ highScore = gcnew HighScore(this->gc->getPlayer(), this->userSetTimeLimit);
-		this->file->addHighScore(highScore);
+	HighScore^ highScore = gcnew HighScore(this->gc->getPlayer(), this->userSetTimeLimit);
+	this->file->addHighScore(highScore);
 }
-
-System::Void MyForm::giveUpBtn_Click(System::Object^  sender, System::EventArgs^  e) {
-	this->endGame();
-}
-
 
 }
