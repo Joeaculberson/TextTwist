@@ -81,6 +81,7 @@ namespace controller {
 	private: System::Windows::Forms::Button^  clearAllButton;
 	private: System::Windows::Forms::Button^  newGameButton;
 	private: int static const DEFAULT_TIME_LIMIT = 1;
+	private: int static const ENTER_KEY = 13;
 	private: System::Windows::Forms::Timer^  timer;
 	private: System::Windows::Forms::Label^  timerLabel;
 	private: int static const MIN_LETTER_LENGTH = 3;
@@ -106,6 +107,8 @@ namespace controller {
 	private: System::Void generateButton_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void buy30SecondsButton_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void buy1MinuteButton_Click(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void nameBox_KeyPress(System::Object^  sender, System::Windows::Forms::KeyPressEventArgs^  e);
+	private: System::Void guessBox_KeyPress(System::Object^  sender, System::Windows::Forms::KeyPressEventArgs^  e);
 	private: void processValidWord(String^ value, Word^ newWord);
 	private: void processInvalidWord(String^ value, Word^ newWord);
 	private: void startNewGame();
@@ -195,6 +198,7 @@ namespace controller {
 			this->guessBox->Name = L"guessBox";
 			this->guessBox->Size = System::Drawing::Size(268, 29);
 			this->guessBox->TabIndex = 3;
+			this->guessBox->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &MyForm::guessBox_KeyPress);
 			// 
 			// submitButton
 			// 
@@ -268,11 +272,12 @@ namespace controller {
 			// 
 			this->nameBox->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
 				static_cast<System::Byte>(0)));
-			this->nameBox->Location = System::Drawing::Point(149, 294);
+			this->nameBox->Location = System::Drawing::Point(227, 209);
 			this->nameBox->Name = L"nameBox";
 			this->nameBox->Size = System::Drawing::Size(267, 29);
 			this->nameBox->TabIndex = 9;
 			this->nameBox->TextChanged += gcnew System::EventHandler(this, &MyForm::nameBox_TextChanged);
+			this->nameBox->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &MyForm::nameBox_KeyPress);
 			// 
 			// startButton
 			// 

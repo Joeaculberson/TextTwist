@@ -98,6 +98,18 @@ System::Void MyForm::guessedWordsBox_Click(System::Object^ sender, System::Event
 	this->newGameButton->Focus();
 }
 
+System::Void MyForm::nameBox_KeyPress(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e) {
+	if (e->KeyChar == char (ENTER_KEY)) {
+		this->beginNewGame();
+	}
+}
+
+System::Void MyForm::guessBox_KeyPress(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e) {
+	if (e->KeyChar == char (ENTER_KEY)) {
+		this->submitWord();
+	}
+}
+
 void MyForm::startNewGame() {
 	this->nameBox->Text = "";
 	this->lettersBox->Text = "";
