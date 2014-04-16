@@ -16,8 +16,6 @@ private:
 	List<String^>^ wordList;
 	FileIO^ fileIO;
 	Player^ player;
-
-	String^ chooseLetter(Random^ generator, array<char>^ letters);
 public:
 	GameController();
 

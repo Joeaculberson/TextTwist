@@ -107,6 +107,7 @@
     <ClInclude Include="Word.h" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="OutputStrings.resx" />
     <EmbeddedResource Include="HighScoresDialog.resx">
       <DependentUpon>HighScoresDialog.h</DependentUpon>
     </EmbeddedResource>

@@ -35,13 +35,7 @@ String^ GameController::getRandomLetters(int totalLetters) {
 		'm', 'p', 'p', 'v', 'v', 'j', 'k', 'q', 'x', 'z' };
 	StringBuilder^ builder = gcnew StringBuilder();
 	for (int i = 0; i < totalLetters; i++) {
-		builder->Append(chooseLetter(generator, letters));
-	}
-	return builder->ToString();
-}
-
-String^ GameController::chooseLetter(Random^ generator, array<char>^ letters) {
-	char randomLetter;
+		char randomLetter;
 
 	do {
 		int randomIndex = generator->Next(0, letters->Length);
@@ -49,7 +43,9 @@ String^ GameController::chooseLetter(Random^ generator, array<char>^ letters) {
 		letters[randomIndex] = '?';
 	} while (randomLetter == '?');
 
-	return Char::ToString(randomLetter);
+	builder->Append(Char::ToString(randomLetter));
+	}
+	return builder->ToString();
 }
 
 String^ GameController::shuffleLetters(String^ lettersToShuffle) {

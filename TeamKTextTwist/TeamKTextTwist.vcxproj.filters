@@ -84,5 +84,6 @@
     <EmbeddedResource Include="OptionsDialog.resx" />
     <EmbeddedResource Include="HighScoresDialog.resx" />
     <EmbeddedResource Include="MyForm.resx" />
+    <EmbeddedResource Include="OutputStrings.resx" />
   </ItemGroup>
 </Project>

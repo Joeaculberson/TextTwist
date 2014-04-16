@@ -9,6 +9,7 @@ using namespace fileio;
 #include "OptionsDialog.h"
 
 using namespace System::Windows::Forms;
+using namespace System::Resources;
 
 namespace controller {
 
@@ -27,6 +28,7 @@ namespace controller {
 	public:
 		MyForm(void)
 		{
+			this->resourceManager = gcnew Resources::ResourceManager(L"TeamKTextTwist.OutputStrings", this->GetType()->Assembly);
 			InitializeComponent();
 			this->minutesLeft = DEFAULT_TIME_LIMIT;
 			this->userSetTimeLimit = DEFAULT_TIME_LIMIT;
@@ -37,7 +39,7 @@ namespace controller {
 			this->file = gcnew FileIO();
 			this->gc = gcnew GameController();
 		}
-
+	
 	protected:
 		/// <summary>
 		/// Clean up any resources being used.
@@ -95,6 +97,7 @@ namespace controller {
 	private: int userSetTimeLimit;
 	private: FileIO^ file;
 	private: bool isGuessRepeating(String^ guess);
+	private: Resources::ResourceManager^ resourceManager;
 
 	private: System::Windows::Forms::Label^  label2;
 	private: System::Windows::Forms::Label^  enterName;
@@ -187,7 +190,7 @@ namespace controller {
 			this->lettersLabel->Name = L"lettersLabel";
 			this->lettersLabel->Size = System::Drawing::Size(207, 20);
 			this->lettersLabel->TabIndex = 1;
-			this->lettersLabel->Text = L"The letters you may use are:";
+			this->lettersLabel->Text = this->resourceManager->GetString(L"AllowedLettersText");
 			// 
 			// guessBox
 			// 
@@ -210,7 +213,7 @@ namespace controller {
 			this->submitButton->Name = L"submitButton";
 			this->submitButton->Size = System::Drawing::Size(85, 27);
 			this->submitButton->TabIndex = 4;
-			this->submitButton->Text = L"Submit";
+			this->submitButton->Text = this->resourceManager->GetString(L"SubmitButtonText");
 			this->submitButton->UseVisualStyleBackColor = true;
 			this->submitButton->Click += gcnew System::EventHandler(this, &MyForm::submitButton_Click);
 			// 
@@ -252,7 +255,7 @@ namespace controller {
 			this->label1->Name = L"label1";
 			this->label1->Size = System::Drawing::Size(186, 20);
 			this->label1->TabIndex = 6;
-			this->label1->Text = L"Correctly guessed words:";
+			this->label1->Text = this->resourceManager->GetString(L"CorrectlyGuessedText");
 			// 
 			// shuffleButton
 			// 
@@ -264,7 +267,7 @@ namespace controller {
 			this->shuffleButton->Name = L"shuffleButton";
 			this->shuffleButton->Size = System::Drawing::Size(120, 25);
 			this->shuffleButton->TabIndex = 7;
-			this->shuffleButton->Text = L"Shuffle Letters";
+			this->shuffleButton->Text = this->resourceManager->GetString(L"ShuffleButtonText");
 			this->shuffleButton->UseVisualStyleBackColor = true;
 			this->shuffleButton->Click += gcnew System::EventHandler(this, &MyForm::shuffleButton_Click);
 			// 
@@ -272,7 +275,7 @@ namespace controller {
 			// 
 			this->nameBox->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
 				static_cast<System::Byte>(0)));
-			this->nameBox->Location = System::Drawing::Point(227, 209);
+			this->nameBox->Location = System::Drawing::Point(150, 294);
 			this->nameBox->Name = L"nameBox";
 			this->nameBox->Size = System::Drawing::Size(267, 29);
 			this->nameBox->TabIndex = 9;
@@ -288,7 +291,7 @@ namespace controller {
 			this->startButton->Name = L"startButton";
 			this->startButton->Size = System::Drawing::Size(85, 27);
 			this->startButton->TabIndex = 10;
-			this->startButton->Text = L"Begin";
+			this->startButton->Text = this->resourceManager->GetString(L"ShuffleButtonText");
 			this->startButton->UseVisualStyleBackColor = true;
 			this->startButton->Click += gcnew System::EventHandler(this, &MyForm::startButton_Click);
 			// 
@@ -301,7 +304,7 @@ namespace controller {
 			this->scoreLabel->Name = L"scoreLabel";
 			this->scoreLabel->Size = System::Drawing::Size(61, 17);
 			this->scoreLabel->TabIndex = 11;
-			this->scoreLabel->Text = L"Score: 0";
+			this->scoreLabel->Text = this->resourceManager->GetString(L"ScoreString") + " 0";
 			// 
 			// menuBar
 			// 
@@ -319,13 +322,13 @@ namespace controller {
 				this->highScoresToolStripMenuItem, this->optionsToolStripMenuItem, this->exitToolStripMenuItem});
 			this->fileToolStripMenuItem->Name = L"fileToolStripMenuItem";
 			this->fileToolStripMenuItem->Size = System::Drawing::Size(37, 22);
-			this->fileToolStripMenuItem->Text = L"File";
+			this->fileToolStripMenuItem->Text = this->resourceManager->GetString(L"FileMenuText");
 			// 
 			// newGameToolStripMenuItem
 			// 
 			this->newGameToolStripMenuItem->Name = L"newGameToolStripMenuItem";
 			this->newGameToolStripMenuItem->Size = System::Drawing::Size(137, 22);
-			this->newGameToolStripMenuItem->Text = L"New Game";
+			this->newGameToolStripMenuItem->Text = this->resourceManager->GetString(L"NewGameButtonText");
 			this->newGameToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::newGameToolStripMenuItem_Click);
 			// 
 			// highScoresToolStripMenuItem

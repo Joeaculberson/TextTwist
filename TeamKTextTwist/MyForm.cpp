@@ -46,11 +46,11 @@ System::Void MyForm::generateButton_Click(System::Object^ sender, System::EventA
 }
 
 String^ MyForm::getCoinString() {
-	return L"Coins: " + this->gc->getPlayerCoins();
+	return this->resourceManager->GetString(L"CoinsString") + this->gc->getPlayerCoins();
 }
 
 String^ MyForm::getScoreString() {
-	return L"Score: " + this->gc->getPlayerScore();
+	return this->resourceManager->GetString(L"ScoreString") + this->gc->getPlayerScore();
 }
 
 System::Void MyForm::buy30SecondsButton_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -68,7 +68,7 @@ System::Void MyForm::buy30SecondsButton_Click(System::Object^ sender, System::Ev
 System::Void MyForm::highScoresToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 	List<HighScore^>^ highScores = this->file->loadHighScores();
 	if (highScores->Count == 0) {
-		MessageBox::Show(L"There are no high scores to display.");
+		MessageBox::Show(this->resourceManager->GetString(L"NoHighScoresOutput"));
 	} else {
 		HighScoresDialog^ highScoreDialog = gcnew HighScoresDialog(highScores);
 		highScoreDialog->ShowDialog();
@@ -144,9 +144,9 @@ void MyForm::handleWordEntry() {
 }
 
 void MyForm::processInvalidWord(String^ value, Word^ newWord) {
-	String^ losingMessage = L"Your word is not in the dictionary.";
+	String^ losingMessage = this->resourceManager->GetString(L"WordNotFoundOutput");
 	if (this->gc->getPlayerScore() > 0) {
-		MessageBox::Show(losingMessage + L" You have lost one point.");
+		MessageBox::Show(losingMessage + this->resourceManager->GetString(L"LostOnePointOutput"));
 		this->gc->decrementPlayerScore();
 		this->scoreLabel->Text = this->getScoreString();
 	} else {
@@ -164,7 +164,7 @@ void MyForm::processValidWord(String^ value, Word^ newWord) {
 		this->coinsLabel->Text = this->getCoinString();
 		this->scoreLabel->Text = this->getScoreString();
 	} else {
-		MessageBox::Show(L"Word has already been guessed");
+		MessageBox::Show(this->resourceManager->GetString(L"WordAlreadyGuessedOutput"));
 	}
 }
 
@@ -172,7 +172,7 @@ void MyForm::submitWord() {
 	if (this->guessBox->Text->Length >= MIN_LETTER_LENGTH) {
 		this->handleWordEntry();
 	} else {
-		MessageBox::Show(L"Your guess must be at least three letters long.");
+		MessageBox::Show(this->resourceManager->GetString(L"MustBeThreeLettersLongOutput"));
 	}
 	this->guessBox->Text = "";
 }
@@ -219,7 +219,7 @@ void MyForm::toggleBuyButtonsEnabled() {
 void MyForm::beginNewGame() {
 	String^ playerName = this->nameBox->Text;
 	if (playerName->Contains("/")) {
-		MessageBox::Show(L"Invalid name. Please try again.");
+		MessageBox::Show(this->resourceManager->GetString(L"InvalidNameOutput"));
 	} else {
 		this->enterName->Visible = false;
 		this->guessBox->BringToFront();
@@ -247,7 +247,7 @@ void MyForm::showOptionsMenu() {
 	OptionsDialog^ optionsDialog = gcnew OptionsDialog(this->userSetTimeLimit, this->reuseLetters);
 
 	if (optionsDialog->ShowDialog() == ::DialogResult::OK) {
-		::DialogResult dialogResult = MessageBox::Show(L"For changes to apply, the game must reset. Reset game?", "Reset", MessageBoxButtons::YesNo);
+		::DialogResult dialogResult = MessageBox::Show(this->resourceManager->GetString(L"ResetQuestion"), this->resourceManager->GetString(L"ResetConfirm"), MessageBoxButtons::YesNo);
 		if (dialogResult == ::DialogResult::Yes) {
 			this->changeDefaultTime(optionsDialog);
 			this->startNewGame();
@@ -269,7 +269,7 @@ System::Void MyForm::timer_Tick(System::Object^  sender, System::EventArgs^  e) 
     else
     {
         this->endGame();
-		MessageBox::Show(L"Time up! Game over.");
+		MessageBox::Show(this->resourceManager->GetString(L"TimeUpOutput"));
     }
 }
 
