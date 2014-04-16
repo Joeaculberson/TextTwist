@@ -123,14 +123,35 @@
   <data name="BeginButtonText" xml:space="preserve">
     <value>Begin!</value>
   </data>
+  <data name="Buy1MinuteText" xml:space="preserve">
+    <value>Buy 1 Minute! (3 coins)</value>
+  </data>
+  <data name="Buy30SecondsText" xml:space="preserve">
+    <value>Buy 30 Seconds! (2 coins)</value>
+  </data>
+  <data name="BuyRegenerateText" xml:space="preserve">
+    <value>Generate new letters! (2 coins)</value>
+  </data>
+  <data name="ClearButtonText" xml:space="preserve">
+    <value>Clear Guess</value>
+  </data>
   <data name="CoinsString" xml:space="preserve">
     <value>Coins:</value>
   </data>
   <data name="CorrectlyGuessedText" xml:space="preserve">
     <value>Correctly Guessed Words:</value>
   </data>
+  <data name="EnterNameLabelText" xml:space="preserve">
+    <value>Enter Your Name:</value>
+  </data>
+  <data name="ExitText" xml:space="preserve">
+    <value>Exit</value>
+  </data>
   <data name="FileMenuText" xml:space="preserve">
     <value>File</value>
+  </data>
+  <data name="HighScoresText" xml:space="preserve">
+    <value>High Scores</value>
   </data>
   <data name="InvalidNameOutput" xml:space="preserve">
     <value>Invalid name. Please try again.</value>
@@ -147,6 +168,9 @@
   <data name="NoHighScoresOutput" xml:space="preserve">
     <value>There are no high scores to display.</value>
   </data>
+  <data name="OptionsText" xml:space="preserve">
+    <value>Options</value>
+  </data>
   <data name="ResetConfirm" xml:space="preserve">
     <value>Reset</value>
   </data>
@@ -162,11 +186,18 @@
   <data name="SubmitButtonText" xml:space="preserve">
     <value>Submit</value>
   </data>
+  <data name="TimeLabelText" xml:space="preserve">
+    <value>Time: </value>
+  </data>
   <data name="TimeUpOutput" xml:space="preserve">
     <value>Time up! Game over.</value>
   </data>
+  <data name="TitleText" xml:space="preserve">
+    <value>TextTwist by Ayaan Kazerouni and Joe Culberson</value>
+  </data>
   <data name="WordAlreadyGuessedOutput" xml:space="preserve">
     <value>Word has already been guessed.</value>
+    <comment>l</comment>
   </data>
   <data name="WordNotFoundOutput" xml:space="preserve">
     <value>You word is not in the dictionary.</value>

@@ -180,6 +180,7 @@ namespace controller {
 			this->coinsLabel = (gcnew System::Windows::Forms::Label());
 			this->menuBar->SuspendLayout();
 			this->SuspendLayout();
+			this->nameBox->Focus();
 			// 
 			// lettersLabel
 			// 
@@ -291,7 +292,7 @@ namespace controller {
 			this->startButton->Name = L"startButton";
 			this->startButton->Size = System::Drawing::Size(85, 27);
 			this->startButton->TabIndex = 10;
-			this->startButton->Text = this->resourceManager->GetString(L"ShuffleButtonText");
+			this->startButton->Text = this->resourceManager->GetString(L"BeginButtonText");
 			this->startButton->UseVisualStyleBackColor = true;
 			this->startButton->Click += gcnew System::EventHandler(this, &MyForm::startButton_Click);
 			// 
@@ -335,21 +336,21 @@ namespace controller {
 			// 
 			this->highScoresToolStripMenuItem->Name = L"highScoresToolStripMenuItem";
 			this->highScoresToolStripMenuItem->Size = System::Drawing::Size(137, 22);
-			this->highScoresToolStripMenuItem->Text = L"High Scores";
+			this->highScoresToolStripMenuItem->Text = this->resourceManager->GetString(L"HighScoresText");
 			this->highScoresToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::highScoresToolStripMenuItem_Click);
 			// 
 			// optionsToolStripMenuItem
 			// 
 			this->optionsToolStripMenuItem->Name = L"optionsToolStripMenuItem";
 			this->optionsToolStripMenuItem->Size = System::Drawing::Size(137, 22);
-			this->optionsToolStripMenuItem->Text = L"Options";
+			this->optionsToolStripMenuItem->Text = this->resourceManager->GetString(L"OptionsText");
 			this->optionsToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::optionsToolStripMenuItem_Click);
 			// 
 			// exitToolStripMenuItem
 			// 
 			this->exitToolStripMenuItem->Name = L"exitToolStripMenuItem";
 			this->exitToolStripMenuItem->Size = System::Drawing::Size(137, 22);
-			this->exitToolStripMenuItem->Text = L"Exit";
+			this->exitToolStripMenuItem->Text = this->resourceManager->GetString(L"ExitText");
 			this->exitToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::exitToolStripMenuItem_Click);
 			// 
 			// clearAllButton
@@ -361,7 +362,7 @@ namespace controller {
 			this->clearAllButton->Name = L"clearAllButton";
 			this->clearAllButton->Size = System::Drawing::Size(120, 25);
 			this->clearAllButton->TabIndex = 13;
-			this->clearAllButton->Text = L"Clear Guess";
+			this->clearAllButton->Text = this->resourceManager->GetString(L"ClearButtonText");
 			this->clearAllButton->UseVisualStyleBackColor = true;
 			this->clearAllButton->Click += gcnew System::EventHandler(this, &MyForm::clearAllButton_Click);
 			// 
@@ -373,7 +374,7 @@ namespace controller {
 			this->newGameButton->Name = L"newGameButton";
 			this->newGameButton->Size = System::Drawing::Size(85, 31);
 			this->newGameButton->TabIndex = 14;
-			this->newGameButton->Text = L"New Game";
+			this->newGameButton->Text = this->resourceManager->GetString(L"NewGameButtonText");
 			this->newGameButton->UseVisualStyleBackColor = true;
 			this->newGameButton->Click += gcnew System::EventHandler(this, &MyForm::newGameButton_Click);
 			// 
@@ -404,7 +405,7 @@ namespace controller {
 			this->label2->Name = L"label2";
 			this->label2->Size = System::Drawing::Size(43, 17);
 			this->label2->TabIndex = 17;
-			this->label2->Text = L"Time:";
+			this->label2->Text = this->resourceManager->GetString(L"TimeLabelText");
 			// 
 			// enterName
 			// 
@@ -416,7 +417,7 @@ namespace controller {
 			this->enterName->Name = L"enterName";
 			this->enterName->Size = System::Drawing::Size(117, 17);
 			this->enterName->TabIndex = 18;
-			this->enterName->Text = L"Enter your name:";
+			this->enterName->Text = this->resourceManager->GetString(L"EnterNameLabelText");
 			// 
 			// buy30SecondsButton
 			// 
@@ -427,7 +428,7 @@ namespace controller {
 			this->buy30SecondsButton->Name = L"buy30SecondsButton";
 			this->buy30SecondsButton->Size = System::Drawing::Size(122, 52);
 			this->buy30SecondsButton->TabIndex = 19;
-			this->buy30SecondsButton->Text = L"Buy 30 Seconds! (2 coins)";
+			this->buy30SecondsButton->Text = this->resourceManager->GetString(L"Buy30SecondsText");
 			this->buy30SecondsButton->UseVisualStyleBackColor = true;
 			this->buy30SecondsButton->Click += gcnew System::EventHandler(this, &MyForm::buy30SecondsButton_Click);
 			// 
@@ -440,7 +441,7 @@ namespace controller {
 			this->generateButton->Name = L"generateButton";
 			this->generateButton->Size = System::Drawing::Size(122, 52);
 			this->generateButton->TabIndex = 20;
-			this->generateButton->Text = L"Generate New Letters! (2 coins)";
+			this->generateButton->Text = this->resourceManager->GetString(L"BuyRegenerateText");
 			this->generateButton->UseVisualStyleBackColor = true;
 			this->generateButton->Click += gcnew System::EventHandler(this, &MyForm::generateButton_Click);
 			// 
@@ -453,7 +454,7 @@ namespace controller {
 			this->buy1MinuteButton->Name = L"buy1MinuteButton";
 			this->buy1MinuteButton->Size = System::Drawing::Size(122, 52);
 			this->buy1MinuteButton->TabIndex = 21;
-			this->buy1MinuteButton->Text = L"Buy One Minute! (3 coins)";
+			this->buy1MinuteButton->Text = this->resourceManager->GetString(L"Buy1MinuteText");
 			this->buy1MinuteButton->UseVisualStyleBackColor = true;
 			this->buy1MinuteButton->Click += gcnew System::EventHandler(this, &MyForm::buy1MinuteButton_Click);
 			// 
@@ -466,7 +467,7 @@ namespace controller {
 			this->coinsLabel->Name = L"coinsLabel";
 			this->coinsLabel->Size = System::Drawing::Size(59, 17);
 			this->coinsLabel->TabIndex = 22;
-			this->coinsLabel->Text = L"Coins: 0";
+			this->coinsLabel->Text = this->resourceManager->GetString(L"CoinsString") + " 0";
 			// 
 			// MyForm
 			// 
@@ -497,7 +498,7 @@ namespace controller {
 			this->Margin = System::Windows::Forms::Padding(2);
 			this->Name = L"MyForm";
 			this->ShowIcon = false;
-			this->Text = L"Text Twist by Ayaan Kazerouni and Joe Culberson";
+			this->Text = this->resourceManager->GetString(L"TitleText");
 			this->menuBar->ResumeLayout(false);
 			this->menuBar->PerformLayout();
 			this->ResumeLayout(false);

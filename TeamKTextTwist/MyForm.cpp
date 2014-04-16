@@ -236,6 +236,7 @@ void MyForm::beginNewGame() {
 		this->buy30SecondsButton->Enabled = false;
 		this->buy1MinuteButton->Enabled = false;
 		this->generateButton->Enabled = false;
+		this->guessedWordsBox->Text = "";
 	}
 }
 
@@ -304,7 +305,7 @@ void MyForm::endGame() {
 	this->startButton->BringToFront();
 	this->startButton->Enabled = true;
 
-	this->guessBox->BringToFront();
+	this->nameBox->BringToFront();
 	this->clearAllButton->Enabled = false;
 	this->minutesLeft = this->userSetTimeLimit;
 	this->secondsLeft = 0;
