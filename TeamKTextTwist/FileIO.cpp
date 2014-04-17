@@ -7,11 +7,20 @@ using namespace System::Text;
 
 namespace fileio {
 
+/// <summary>
+/// Default constructor for the FileIO class.
+/// </summary>
+/// <pre>None.</pre>
 FileIO::FileIO(void)
 {
 		
 }
-	
+
+/// <summary>
+/// Returns the list of words in the dictionary.
+/// </summary>
+/// <pre>None.</pre>
+/// <return>The list of words from the dictionary</return>
 List<String^>^ FileIO::parseFile() 
 {
 	List<String^>^ words = gcnew List<String^>();
@@ -33,6 +42,12 @@ List<String^>^ FileIO::parseFile()
 	return words;
 }
 
+/// <summary>
+/// Adds a high score to the config file.
+/// </summary>
+/// <pre>None.</pre>
+/// <param value="highScore">The high score to add.</param>
+/// <return>The player's score.</return>
 void FileIO::addHighScore(HighScore^ highScore) {
 	List<HighScore^>^ highScores = this->loadHighScores();
 	highScores->Add(highScore);
@@ -57,10 +72,19 @@ void FileIO::addHighScore(HighScore^ highScore) {
 	}
 }
 
+/// <summary>
+/// Clears the high score list.
+/// </summary>
+/// <pre>None.</pre>
 void FileIO::clearList() {
 	File::Create(L"highscores.txt")->Close();
 }
 
+/// <summary>
+/// Returns all the high scores.
+/// </summary>
+/// <pre>None.</pre>
+/// <return>The list of player's highscores</return>
 List<HighScore^>^ FileIO::loadHighScores() {
 	String^ fileName = L"highscores.txt";
 	List<HighScore^>^ highScores = gcnew List<HighScore^>();
@@ -75,6 +99,13 @@ List<HighScore^>^ FileIO::loadHighScores() {
 	return highScores;
 }
 
+/// <summary>
+/// Adds a high score from the file.
+/// </summary>
+/// <pre>line != nullptr</pre>
+/// <pre>highScores != nullptr</pre>
+/// <param value="line">The line to add the high score from</param>
+/// <param value="highScores">The list of high scores</param>
 void FileIO::addHighScoreFromFile(String^ line, List<HighScore^>^ highScores) {
 	array<String^>^ rawPerson = line->Split('/');
 	Player^ player = gcnew Player(rawPerson[0]);
