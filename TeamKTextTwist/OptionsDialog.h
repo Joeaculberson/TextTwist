@@ -17,30 +17,7 @@ namespace controller {
 	public: int getTimeLimit();
 	public: bool getLetterReuse();
 	public:
-		OptionsDialog(int timeLimit, bool letterReuse)
-		{
-			InitializeComponent();
-
-			this->minuteOneButton->Checked = false;
-			this->minuteTwoButton->Checked = false;
-			this->minuteThreeButton->Checked = false;
-
-			if(timeLimit == ONE_MINUTE) {
-				this->minuteOneButton->Checked = true;
-			} else if(timeLimit == TWO_MINUTES) {
-				this->minuteTwoButton->Checked = true;
-			} else if(timeLimit == THREE_MINUTES) {
-				this->minuteThreeButton->Checked = true;
-			} else {
-				throw gcnew ArgumentException("Invalid time limit.");
-			}
-
-			if(letterReuse) {
-				this->letterReuse->Checked = true;
-			} else {
-				this->letterReuse->Checked = false;
-			}
-		}
+		OptionsDialog(int timeLimit, bool letterReuse);
 
 	protected:
 		/// <summary>

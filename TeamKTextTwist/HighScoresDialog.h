@@ -8,6 +8,7 @@ using namespace model;
 using namespace fileio;
 
 using namespace System::Collections::Generic;
+using namespace System::Resources;
 
 namespace controller {
 
@@ -23,19 +24,7 @@ namespace controller {
 	/// </summary>
 	public ref class HighScoresDialog : public System::Windows::Forms::Form
 	{
-	public:
-		HighScoresDialog(List<HighScore^>^ highScores)
-		{
-			InitializeComponent();
-			if (highScores->Count == 0) {
-				MessageBox::Show("There are no high scores to display.");
-			} else {
-				for each (HighScore^ currPlayer in highScores)
-				{
-					this->addHighScore(currPlayer);
-				}
-			}
-		}
+	public: HighScoresDialog(List<HighScore^>^ highScores);
 
 	protected:
 		/// <summary>
@@ -57,9 +46,6 @@ namespace controller {
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^  scoreColumn;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^  timeAllotted;
 	private: System::Windows::Forms::Label^  label1;
-
-
-
 
 	private: System::Windows::Forms::DataGridView^  highScoreGrid;
 	private: System::Void resetBtn_Click(System::Object^  sender, System::EventArgs^  e);
