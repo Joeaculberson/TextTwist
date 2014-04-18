@@ -39,10 +39,7 @@ System::Void MyForm::newGameToolStripMenuItem_Click(System::Object^  sender, Sys
 }
 
 System::Void MyForm::generateButton_Click(System::Object^ sender, System::EventArgs^ e) {
-	this->handleGenerateEvent();
-	this->gc->decrementPlayerCoins(2);
-	this->coinsLabel->Text = this->getCoinString();
-	this->toggleBuyButtonsEnabled();
+	this->buyRegenerate();
 }
 
 String^ MyForm::getCoinString() {
@@ -54,32 +51,15 @@ String^ MyForm::getScoreString() {
 }
 
 System::Void MyForm::buy30SecondsButton_Click(System::Object^ sender, System::EventArgs^ e) {
-	this->secondsLeft = this->secondsLeft + 30;
-	if (this->secondsLeft > 59) {
-		int over = this->secondsLeft - 60;
-		this->secondsLeft = over;
-		this->minutesLeft = this->minutesLeft + 1;
-	}
-	this->gc->decrementPlayerCoins(2);
-	this->toggleBuyButtonsEnabled();
-	this->coinsLabel->Text = this->getCoinString();
+	this->buy30Seconds();
 }
 
 System::Void MyForm::highScoresToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
-	List<HighScore^>^ highScores = this->file->loadHighScores();
-	if (highScores->Count == 0) {
-		MessageBox::Show(this->resourceManager->GetString(L"NoHighScoresOutput"));
-	} else {
-		HighScoresDialog^ highScoreDialog = gcnew HighScoresDialog(highScores);
-		highScoreDialog->ShowDialog();
-	}
+	this->displayHighScores();
 }
 
 System::Void MyForm::buy1MinuteButton_Click(System::Object^ sender, System::EventArgs^ e) {
-	this->minutesLeft = this->minutesLeft + 1;
-	this->gc->decrementPlayerCoins(3);
-	this->toggleBuyButtonsEnabled();
-	this->coinsLabel->Text = this->getCoinString();
+	this->buy1Minute();
 }
 
 System::Void MyForm::clearAllButton_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -107,6 +87,23 @@ System::Void MyForm::nameBox_KeyPress(System::Object^ sender, System::Windows::F
 System::Void MyForm::guessBox_KeyPress(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e) {
 	if (e->KeyChar == char (ENTER_KEY)) {
 		this->submitWord();
+	}
+}
+
+void MyForm::buy1Minute() {
+	this->minutesLeft = this->minutesLeft + 1;
+	this->gc->decrementPlayerCoins(3);
+	this->toggleBuyButtonsEnabled();
+	this->coinsLabel->Text = this->getCoinString();
+}
+
+void MyForm::displayHighScores() {
+	List<HighScore^>^ highScores = this->file->loadHighScores();
+	if (highScores->Count == 0) {
+		MessageBox::Show(this->resourceManager->GetString(L"NoHighScoresOutput"));
+	} else {
+		HighScoresDialog^ highScoreDialog = gcnew HighScoresDialog(highScores);
+		highScoreDialog->ShowDialog();
 	}
 }
 
@@ -177,10 +174,29 @@ void MyForm::submitWord() {
 	this->guessBox->Text = "";
 }
 
+void MyForm::buy30Seconds() {
+	this->secondsLeft = this->secondsLeft + 30;
+	if (this->secondsLeft > 59) {
+		int over = this->secondsLeft - 60;
+		this->secondsLeft = over;
+		this->minutesLeft = this->minutesLeft + 1;
+	}
+	this->gc->decrementPlayerCoins(2);
+	this->toggleBuyButtonsEnabled();
+	this->coinsLabel->Text = this->getCoinString();
+}
+
 void MyForm::handleGenerateEvent() {
 	this->generatedLetters = gc->getRandomLetters(7);
 	this->lettersBox->Text = this->generatedLetters;
 	this->shuffleButton->Enabled = true;
+}
+
+void MyForm::buyRegenerate() {
+	this->handleGenerateEvent();
+	this->gc->decrementPlayerCoins(2);
+	this->coinsLabel->Text = this->getCoinString();
+	this->toggleBuyButtonsEnabled();
 }
 
 void MyForm::handleShuffle() {

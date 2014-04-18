@@ -123,6 +123,10 @@ namespace controller {
 	private: void MyForm::formatClock(int minutes, int seconds);
 	private: void beginNewGame();
 	private: void showOptionsMenu();
+	private: void buyRegenerate();
+	private: void buy30Seconds();
+	private: void buy1Minute();
+	private: void displayHighScores();
 	private: String^ getCoinString();
 	private: String^ getScoreString();
 	private: void changeDefaultTime(OptionsDialog^ optionsDialog);
