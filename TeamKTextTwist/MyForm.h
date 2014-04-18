@@ -26,31 +26,13 @@ namespace controller {
 	public ref class MyForm : public System::Windows::Forms::Form
 	{
 	public:
-		MyForm(void)
-		{
-			this->resourceManager = gcnew Resources::ResourceManager(L"TeamKTextTwist.OutputStrings", this->GetType()->Assembly);
-			InitializeComponent();
-			this->minutesLeft = DEFAULT_TIME_LIMIT;
-			this->userSetTimeLimit = DEFAULT_TIME_LIMIT;
-			this->secondsLeft = 0;
-			this->timerLabel->Text = this->minutesLeft + ":00";
-			this->reuseLetters = false;
-			this->newGameButton->Focus();
-			this->file = gcnew FileIO();
-			this->gc = gcnew GameController();
-		}
+		MyForm();
 	
 	protected:
 		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
-		~MyForm()
-		{
-			if (components)
-			{
-				delete components;
-			}
-		}
+		~MyForm();
 
 	protected: 
 	private: System::Windows::Forms::Label^  lettersLabel;

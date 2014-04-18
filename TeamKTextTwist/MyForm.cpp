@@ -10,6 +10,26 @@ using namespace controller;
 
 namespace controller {
 
+MyForm::MyForm() {
+	this->resourceManager = gcnew Resources::ResourceManager(L"TeamKTextTwist.OutputStrings", this->GetType()->Assembly);
+	InitializeComponent();
+	this->minutesLeft = DEFAULT_TIME_LIMIT;
+	this->userSetTimeLimit = DEFAULT_TIME_LIMIT;
+	this->secondsLeft = 0;
+	this->timerLabel->Text = this->minutesLeft + ":00";
+	this->reuseLetters = false;
+	this->newGameButton->Focus();
+	this->file = gcnew FileIO();
+	this->gc = gcnew GameController();
+}
+
+MyForm::~MyForm() {
+	if (components)
+	{
+		delete components;
+	}
+}
+
 System::Void MyForm::shuffleButton_Click(System::Object^  sender, System::EventArgs^  e) {
 	this->handleShuffle();
 }
