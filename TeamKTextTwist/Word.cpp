@@ -69,8 +69,8 @@ bool Word::isValid(List<String^>^ dictionary, List<char>^ allowedLetters, bool r
 /// <summary>
 /// Returns the point value that the word is worth.
 /// </summary>
-/// <pre>None.</pre>
-/// <returns>The point value of the word</returns>
+/// <pre>None</pre>
+/// <returns>The word's point value</returns>
 int Word::getPointValue() {
 	int length = this->value->Length;
 	if (length <= 4 ) {
