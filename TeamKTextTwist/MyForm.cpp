@@ -18,9 +18,9 @@ MyForm::MyForm() {
 	this->secondsLeft = 0;
 	this->timerLabel->Text = this->minutesLeft + ":00";
 	this->reuseLetters = false;
-	this->newGameButton->Focus();
+	this->nameBox->Focus();
 	this->file = gcnew FileIO();
-	this->gc = gcnew GameController();
+	this->gameController = gcnew GameController();
 }
 
 MyForm::~MyForm() {
@@ -63,11 +63,11 @@ System::Void MyForm::generateButton_Click(System::Object^ sender, System::EventA
 }
 
 String^ MyForm::getCoinString() {
-	return this->resourceManager->GetString(L"CoinsString") + this->gc->getPlayerCoins();
+	return this->resourceManager->GetString(L"CoinsString") + this->gameController->getPlayerCoins();
 }
 
 String^ MyForm::getScoreString() {
-	return this->resourceManager->GetString(L"ScoreString") + this->gc->getPlayerScore();
+	return this->resourceManager->GetString(L"ScoreString") + this->gameController->getPlayerScore();
 }
 
 System::Void MyForm::buy30SecondsButton_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -112,7 +112,7 @@ System::Void MyForm::guessBox_KeyPress(System::Object^ sender, System::Windows::
 
 void MyForm::buy1Minute() {
 	this->minutesLeft = this->minutesLeft + 1;
-	this->gc->decrementPlayerCoins(3);
+	this->gameController->decrementPlayerCoins(3);
 	this->toggleBuyButtonsEnabled();
 	this->coinsLabel->Text = this->getCoinString();
 }
@@ -139,7 +139,7 @@ void MyForm::startNewGame() {
 	this->newGameButton->BringToFront();
 	this->clearAllButton->Enabled = false;
 	this->enterName->Visible = true;
-	this->gc->createNewPlayer();
+	this->gameController->createNewPlayer();
 	this->scoreLabel->Text = this->getScoreString();
 	this->guessedWordsBox->Text = "";
 	this->timer->Stop();
@@ -152,7 +152,7 @@ void MyForm::handleWordEntry() {
 	String^ value = this->guessBox->Text;
 	Word^ newWord = gcnew Word(value);
 	String^ allowedLetters = this->lettersBox->Text;
-	if (this->gc->isWordValid(newWord, allowedLetters, this->reuseLetters)) {
+	if (this->gameController->isWordValid(newWord, allowedLetters, this->reuseLetters)) {
 		this->processValidWord(value, newWord);
 	} else {
 		this->processInvalidWord(value, newWord);
@@ -162,9 +162,9 @@ void MyForm::handleWordEntry() {
 
 void MyForm::processInvalidWord(String^ value, Word^ newWord) {
 	String^ losingMessage = this->resourceManager->GetString(L"WordNotFoundOutput");
-	if (this->gc->getPlayerScore() > 0) {
+	if (this->gameController->getPlayerScore() > 0) {
 		MessageBox::Show(losingMessage + this->resourceManager->GetString(L"LostOnePointOutput"));
-		this->gc->decrementPlayerScore();
+		this->gameController->decrementPlayerScore();
 		this->scoreLabel->Text = this->getScoreString();
 	} else {
 		MessageBox::Show(losingMessage);
@@ -176,8 +176,8 @@ void MyForm::processValidWord(String^ value, Word^ newWord) {
 		int pointValue = newWord->getPointValue();
 		int coinsAwarded = newWord->getCoinsAwarded();
 		this->guessedWordsBox->AppendText(" " + value + " (" + pointValue + ")" + Environment::NewLine);
-		this->gc->incrementPlayerScore(pointValue);
-		this->gc->incrementPlayerCoins(coinsAwarded);
+		this->gameController->incrementPlayerScore(pointValue);
+		this->gameController->incrementPlayerCoins(coinsAwarded);
 		this->coinsLabel->Text = this->getCoinString();
 		this->scoreLabel->Text = this->getScoreString();
 	} else {
@@ -201,20 +201,20 @@ void MyForm::buy30Seconds() {
 		this->secondsLeft = over;
 		this->minutesLeft = this->minutesLeft + 1;
 	}
-	this->gc->decrementPlayerCoins(2);
+	this->gameController->decrementPlayerCoins(2);
 	this->toggleBuyButtonsEnabled();
 	this->coinsLabel->Text = this->getCoinString();
 }
 
 void MyForm::handleGenerateEvent() {
-	this->generatedLetters = gc->getRandomLetters(7);
+	this->generatedLetters = gameController->getRandomLetters(7);
 	this->lettersBox->Text = this->generatedLetters;
 	this->shuffleButton->Enabled = true;
 }
 
 void MyForm::buyRegenerate() {
 	this->handleGenerateEvent();
-	this->gc->decrementPlayerCoins(2);
+	this->gameController->decrementPlayerCoins(2);
 	this->coinsLabel->Text = this->getCoinString();
 	this->toggleBuyButtonsEnabled();
 }
@@ -222,7 +222,7 @@ void MyForm::buyRegenerate() {
 void MyForm::handleShuffle() {
 	if (this->lettersBox->Text != "") {
 		String^ letters = this->lettersBox->Text;
-		letters = this->gc->shuffleLetters(letters);
+		letters = this->gameController->shuffleLetters(letters);
 		this->lettersBox->Text = letters;
 	}
 }
@@ -236,7 +236,7 @@ void MyForm::toggleStartButtonEnabled() {
 }
 
 void MyForm::toggleBuyButtonsEnabled() {
-	int coins = this->gc->getPlayerCoins();
+	int coins = this->gameController->getPlayerCoins();
 	if (coins >= 2) {
 		this->buy30SecondsButton->Enabled = true;
 		this->generateButton->Enabled = true;
@@ -264,7 +264,7 @@ void MyForm::beginNewGame() {
 		this->startButton->Enabled = false;
 
 		this->clearAllButton->Enabled = true;
-		this->gc->setPlayerName(playerName);
+		this->gameController->setPlayerName(playerName);
 		this->submitButton->Enabled = true;
 		this->handleGenerateEvent();
 		this->timer->Start();
@@ -347,7 +347,7 @@ void MyForm::endGame() {
 	this->secondsLeft = 0;
 	this->enterName->Visible = true;
 
-	HighScore^ highScore = gcnew HighScore(this->gc->getPlayer(), this->userSetTimeLimit);
+	HighScore^ highScore = gcnew HighScore(this->gameController->getPlayer(), this->userSetTimeLimit);
 	this->file->addHighScore(highScore);
 }
 
