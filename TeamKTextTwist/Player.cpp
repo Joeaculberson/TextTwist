@@ -70,7 +70,7 @@ void Player::setCoins(int coins) {
 }
 
 /// <summary>
-/// Returns the name of the player.
+/// Returns the player's name.
 /// </summary>
 /// <pre>None.</pre>
 /// <returns>The name of the player.</returns>
