@@ -58,7 +58,7 @@ namespace controller {
 	private: System::Windows::Forms::ToolStripMenuItem^  optionsToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^  exitToolStripMenuItem;
 
-	private: GameController^ gc;
+	private: GameController^ gameController;
 	private: int secondsLeft;
 	private: int minutesLeft;
 	private: bool reuseLetters;
