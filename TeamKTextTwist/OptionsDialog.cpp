@@ -5,7 +5,7 @@ namespace controller {
 ///<summary>
 /// Creates an options dialog with assigned values.
 ///</summary>
-///<pre>timeLimit == 1 || 2 || 3</pre>
+///<pre>timeLimit == 1 || timeLimit == 2 || timeLimit == 3</pre>
 ///<param value="timeLimit">The time limit that will display</param>
 ///<param value="letterReuse">If letter reuse should be checked or not</param>
 OptionsDialog::OptionsDialog(int timeLimit, bool letterReuse) {
